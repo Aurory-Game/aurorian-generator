@@ -28,7 +28,7 @@ export class AurorianV2Generator {
     );
     this.seqToColorData = seqToColorData;
   }
-  async generate(sequence: number, bgFilename: string): Promise<Buffer> {
+  async generate(sequence: number, bgFilePath: string): Promise<Buffer> {
     const aurorian = this.auroriansData[sequence];
     const newAttributes = buildAttributes(
       aurorian.attributes,
@@ -39,6 +39,6 @@ export class AurorianV2Generator {
     const sharpInputs = [
       ...buildSharpInputs(this.imagesDirPath, newAttributes),
     ];
-    return await sharp(bgFilename).composite(sharpInputs).toBuffer();
+    return await sharp(bgFilePath).composite(sharpInputs).toBuffer();
   }
 }
