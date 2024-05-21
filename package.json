@@ -1,0 +1,22 @@
+{
+  "name": "@aurory/aurorian-generator",
+  "version": "0.0.1",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "sp": "ts-node \"$@\"",
+    "build": "rm -rf lib && tsc -p tsconfig.build.json"
+  },
+  "dependencies": {
+    "@types/node": "^20.11.24",
+    "dotenv": "^16.4.5",
+    "progress": "^2.0.3",
+    "sharp": "^0.33.2",
+    "typescript": "^5.3.3"
+  },
+  "packageManager": "yarn@4.1.1",
+  "devDependencies": {
+    "@types/progress": "^2",
+    "ts-node": "^10.9.2"
+  }
+}
