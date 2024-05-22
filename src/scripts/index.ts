@@ -27,18 +27,27 @@ async function runMultiple() {
   // fs.mkdirSync(outputFolder);
   const seqToColorNamePath = path.join(
     path.resolve(),
-    "src",
-    "sdk",
+    "deps",
     "seq_to_color.json"
   );
 
   const hairlessVersion = JSON.parse(
-    fs.readFileSync(path.resolve(__dirname, "hairless-versions.json"), "utf-8")
+    fs.readFileSync(
+      path.join(path.resolve(), "deps", "hairless-versions.json"),
+      "utf-8"
+    )
   );
 
   const whiteshirtVersion = JSON.parse(
     fs.readFileSync(
-      path.resolve(__dirname, "whiteshirt-versions.json"),
+      path.join(path.resolve(), "deps", "white-shirt-versions.json"),
+      "utf-8"
+    )
+  );
+
+  const baseMouthVersion = JSON.parse(
+    fs.readFileSync(
+      path.join(path.resolve(), "deps", "base-mouth-versions.json"),
       "utf-8"
     )
   );
@@ -71,7 +80,7 @@ async function runMultiple() {
     .toBuffer();
 
   // for (let index = 330; index < 1000; index++) {
-  for (let index = 5434; index < 10000; index++) {
+  for (let index = 0; index < 10; index++) {
     // cl(index);
     await generateAurorianOldvsNew(
       // 50,
@@ -84,59 +93,10 @@ async function runMultiple() {
       line,
       backgroundPaths,
       hairlessVersion,
-      whiteshirtVersion
+      whiteshirtVersion,
+      baseMouthVersion
     );
   }
-  process.exit(0);
-}
-
-async function runSingle() {
-  const outputFolder = "output";
-  // delete folder first
-  if (fs.existsSync(outputFolder)) {
-    fs.rmdirSync(outputFolder, { recursive: true });
-  }
-  fs.mkdirSync(outputFolder);
-  const seqToColorNamePath = path.join(
-    path.resolve(),
-    "src",
-    "sdk",
-    "seq_to_color.json"
-  );
-
-  const hairlessVersion = JSON.parse(
-    fs.readFileSync(path.resolve(__dirname, "hairless-versions.json"), "utf-8")
-  );
-  const whiteshirtVersion = JSON.parse(
-    fs.readFileSync(
-      path.resolve(__dirname, "whiteshirt-versions.json"),
-      "utf-8"
-    )
-  );
-
-  // 0 black, 1 latino, 2 white
-  const seqToColorName = JSON.parse(
-    fs.readFileSync(seqToColorNamePath, "utf-8")
-  );
-
-  const oldAuroriansPath =
-    "/home/levani/tevle/Aurory Dropbox/AuroryProject/processed_files/consolidated_data.json";
-  const oldAurorians = JSON.parse(fs.readFileSync(oldAuroriansPath, "utf-8"));
-  const defaultBackGroundPath =
-    "/home/levani/tevle/Aurory Dropbox/AuroryProject/SocialMedia/Skins/background/BG_Background_Orange.png";
-  const newAssetsPath =
-    "/home/levani/tevle/Aurory Dropbox/AuroryProject/NFT/Aurorian_Tokané";
-
-  await generateSingle(
-    54,
-    oldAurorians,
-    seqToColorName,
-    newAssetsPath,
-    defaultBackGroundPath,
-    outputFolder,
-    hairlessVersion,
-    whiteshirtVersion
-  );
   process.exit(0);
 }
 
@@ -170,7 +130,8 @@ async function runSingleWithSDK() {
     newAssetsPath,
     oldAuroriansPath,
     path.resolve(path.resolve(), "deps", "hairless-versions.json"),
-    path.resolve(path.resolve(), "deps", "whiteshirt-versions.json"),
+    path.resolve(path.resolve(), "deps", "white-shirt-versions.json"),
+    path.resolve(path.resolve(), "deps", "base-mouth-versions.json"),
     seqToColorName
   );
   const sequence = 1;
@@ -178,4 +139,4 @@ async function runSingleWithSDK() {
   fs.writeFileSync(path.join(outputFolder, `${sequence}.png`), data);
 }
 
-runSingleWithSDK();
+runMultiple();

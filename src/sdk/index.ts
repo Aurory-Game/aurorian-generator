@@ -8,12 +8,14 @@ export class AurorianV2Generator {
   auroriansData: any;
   hairlessVersion: any;
   whiteshirtVersion: any;
+  baseMouthVersion: any;
   seqToColorData: Record<string, number>;
   constructor(
     imagesDirPath: string,
     consolidatedAuroriansPath: string,
     hairlessVersionPath: string,
     whiteshirtVersionPath: string,
+    baseMouthVersionPath: string,
     seqToColorData: Record<string, number>
   ) {
     this.imagesDirPath = imagesDirPath;
@@ -21,10 +23,13 @@ export class AurorianV2Generator {
       fs.readFileSync(consolidatedAuroriansPath, "utf-8")
     );
     this.hairlessVersion = JSON.parse(
-      fs.readFileSync(path.resolve(hairlessVersionPath), "utf-8")
+      fs.readFileSync(hairlessVersionPath, "utf-8")
     );
     this.whiteshirtVersion = JSON.parse(
-      fs.readFileSync(path.resolve(whiteshirtVersionPath), "utf-8")
+      fs.readFileSync(whiteshirtVersionPath, "utf-8")
+    );
+    this.baseMouthVersion = JSON.parse(
+      fs.readFileSync(baseMouthVersionPath, "utf-8")
     );
     this.seqToColorData = seqToColorData;
   }
@@ -34,7 +39,8 @@ export class AurorianV2Generator {
       aurorian.attributes,
       this.seqToColorData as any as { [key: string]: string },
       this.hairlessVersion,
-      this.whiteshirtVersion
+      this.whiteshirtVersion,
+      this.baseMouthVersion
     );
     const sharpInputs = [
       ...buildSharpInputs(this.imagesDirPath, newAttributes),

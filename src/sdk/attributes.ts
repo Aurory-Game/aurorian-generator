@@ -823,12 +823,17 @@ enum COMMANDS {
 export function mouthFilenameConverter(
   value: string,
   skin: string,
-  color: string
+  color: string,
+  sequence: number,
+  baseMouthVersion: { version: number }[]
 ): string {
   let key: string;
   if (value === "Base Mouth") {
     if (skin === "Human") {
-      key = `Base Mouth_${color}`;
+      const version = baseMouthVersion[sequence].version
+        ? baseMouthVersion[sequence].version + 1
+        : 1;
+      key = `${version}_Base Mouth_${color}`;
     } else {
       key = `Base Mouth_${skin}`;
     }
@@ -953,7 +958,8 @@ export function attributeConverter(
   color: string,
   sequence: number,
   hairlessVersion: { version: number }[],
-  whiteshirtVersion: { version: number }[]
+  whiteshirtVersion: { version: number }[],
+  baseMouthVersion: { version: number }[]
 ): ConvertedAttribute | COMMANDS {
   const { trait_type, value: valueRaw } = attribute;
   const value = valueRaw.trim();
@@ -961,7 +967,13 @@ export function attributeConverter(
   if (trait_type === "Skin") {
     key = skinFilenameConverter(skin, color);
   } else if (trait_type === "Mouth") {
-    key = mouthFilenameConverter(value, skin, color);
+    key = mouthFilenameConverter(
+      value,
+      skin,
+      color,
+      sequence,
+      baseMouthVersion
+    );
   } else if (trait_type === "Hair") {
     key = hairFilenameConverter(value, skin, color, sequence, hairlessVersion);
   } else if (trait_type === "Necklace") {
@@ -1011,7 +1023,8 @@ export function buildAttributes(
   oldAttributes: Attribute[],
   seqToColorName: { [key: string]: string },
   hairlessVersion: { version: number }[],
-  whiteshirtVersion: { version: number }[]
+  whiteshirtVersion: { version: number }[],
+  baseMouthVersion: { version: number }[]
 ): ConvertedAttribute[] {
   const sequence = oldAttributes.find(
     ({ trait_type }) => trait_type === " sequence" || trait_type === "sequence"
@@ -1076,7 +1089,8 @@ export function buildAttributes(
         color,
         sequence,
         hairlessVersion,
-        whiteshirtVersion
+        whiteshirtVersion,
+        baseMouthVersion
       )
     )
     .filter((a) => a !== COMMANDS.SKIP) as ConvertedAttribute[];

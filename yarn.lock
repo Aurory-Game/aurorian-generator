@@ -5,6 +5,20 @@ __metadata:
   version: 8
   cacheKey: 10c0
 
+"@aurory/aurorian-generator@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "@aurory/aurorian-generator@workspace:."
+  dependencies:
+    "@types/node": "npm:^20.11.24"
+    "@types/progress": "npm:^2"
+    dotenv: "npm:^16.4.5"
+    progress: "npm:^2.0.3"
+    sharp: "npm:^0.33.2"
+    ts-node: "npm:^10.9.2"
+    typescript: "npm:^5.3.3"
+  languageName: unknown
+  linkType: soft
+
 "@cspotcode/source-map-support@npm:^0.8.0":
   version: 0.8.1
   resolution: "@cspotcode/source-map-support@npm:0.8.1"
@@ -299,20 +313,6 @@ __metadata:
   checksum: 10c0/070ff801a9d236a6caa647507bdcc7034530604844d64408149a26b9e87c2f97650055c0f049abd1efc024b334635c01f29e0b632b371ac3f26130f4cf65997a
   languageName: node
   linkType: hard
-
-"aurorian-generator@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "aurorian-generator@workspace:."
-  dependencies:
-    "@types/node": "npm:^20.11.24"
-    "@types/progress": "npm:^2"
-    dotenv: "npm:^16.4.5"
-    progress: "npm:^2.0.3"
-    sharp: "npm:^0.33.2"
-    ts-node: "npm:^10.9.2"
-    typescript: "npm:^5.3.3"
-  languageName: unknown
-  linkType: soft
 
 "color-convert@npm:^2.0.1":
   version: 2.0.1

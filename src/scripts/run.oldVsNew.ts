@@ -19,7 +19,7 @@ async function runMultiple() {
   );
   const whiteshirtVersion = JSON.parse(
     fs.readFileSync(
-      path.resolve(__dirname, "whiteshirt-versions.json"),
+      path.resolve(__dirname, "white-shirt-versions.json"),
       "utf-8"
     )
   );

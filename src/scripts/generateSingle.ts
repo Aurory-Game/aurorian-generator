@@ -13,7 +13,8 @@ export async function generateSingle(
   defaultBackGroundPath,
   outputFolder,
   hairlessVersion: any,
-  whiteshirtVersion: any
+  whiteshirtVersion: any,
+  baseMouthVersion: any
 ) {
   const oldAurorian = oldAurorians[aurorianIndex];
   const sequence = (oldAurorian.attributes as { value: number }[]).last().value;
@@ -23,7 +24,8 @@ export async function generateSingle(
       oldAurorian.attributes,
       seqToColorName,
       hairlessVersion,
-      whiteshirtVersion
+      whiteshirtVersion,
+      baseMouthVersion
     );
 
     const sharpInputs = [...buildSharpInputs(newAssetsPath, newAttributes)];

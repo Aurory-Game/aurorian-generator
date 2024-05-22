@@ -49,7 +49,7 @@ function distributeHairVersion(oldAurorians: Aurorian[]): void {
         lastVersions[colorToIndex[color]] = newVersion;
       }
     });
-  const savePath = path.resolve(__dirname, "hairless-versions.json");
+  const savePath = path.join(path.resolve(), "deps", "hairless-versions.json");
   fs.writeFileSync(savePath, JSON.stringify(noHairVersion, null, 2));
 }
 
@@ -68,8 +68,35 @@ function distributeWhiteShirt(oldAurorians: Aurorian[]): void {
       };
     }
   });
-  const savePath = path.resolve(__dirname, "whiteshirt-versions.json");
+  const savePath = path.join(
+    path.resolve(),
+    "deps",
+    "white-shirt-versions.json"
+  );
   fs.writeFileSync(savePath, JSON.stringify(whiteShirtVersions, null, 2));
+}
+
+function distributeBaseMouth(oldAurorians: Aurorian[]): void {
+  const baseMouthVersions: { [key: string]: WhiteShirtVersion } = {};
+  let counter = 0;
+  oldAurorians.forEach((aurorian) => {
+    const cloth = aurorian.attributes.find(
+      (a) => a.trait_type == "Mouth"
+    )?.value;
+    const skin = aurorian.attributes.find((a) => a.trait_type == "Skin")?.value;
+    if (skin === "Human" && cloth === "Base Mouth") {
+      const sequence = aurorian.name.split("#")[1];
+      baseMouthVersions[sequence] = {
+        version: counter++ % 2,
+      };
+    }
+  });
+  const savePath = path.join(
+    path.resolve(),
+    "deps",
+    "base-mouth-versions.json"
+  );
+  fs.writeFileSync(savePath, JSON.stringify(baseMouthVersions, null, 2));
 }
 
 async function run(): Promise<void> {
@@ -80,6 +107,7 @@ async function run(): Promise<void> {
   );
   distributeHairVersion(oldAurorians);
   distributeWhiteShirt(oldAurorians);
+  distributeBaseMouth(oldAurorians);
 }
 
 run();

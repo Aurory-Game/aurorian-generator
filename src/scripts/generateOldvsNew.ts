@@ -76,7 +76,8 @@ export async function generateAurorianOldvsNew(
   line: Buffer,
   backgroundPaths: string[],
   hairlessVersion: any,
-  whiteshirtVersion: any
+  whiteshirtVersion: any,
+  baseMouthVersion: any
 ) {
   const oldAurorian = oldAurorians[aurorianIndex];
   const sequence = (oldAurorian.attributes as { value: number }[]).last().value;
@@ -94,7 +95,8 @@ export async function generateAurorianOldvsNew(
       oldAurorian.attributes,
       seqToColorName,
       hairlessVersion,
-      whiteshirtVersion
+      whiteshirtVersion,
+      baseMouthVersion
     );
     const text = jsonToText(newAttributes);
     const { image: textImageBuffer, height: textImageBufferHeight } =
