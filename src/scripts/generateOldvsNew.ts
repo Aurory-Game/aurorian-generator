@@ -118,12 +118,12 @@ export async function generateAurorianOldvsNew(
         left: width,
         top: 0,
       },
-      {
-        input:
-          backgroundPaths[Math.floor(Math.random() * backgroundPaths.length)],
-        left: width,
-        top: 0,
-      },
+      // {
+      //   input:
+      //     backgroundPaths[Math.floor(Math.random() * backgroundPaths.length)],
+      //   left: width,
+      //   top: 0,
+      // },
       ...buildSharpInputs(newAssetsPath, newAttributes, width),
     ];
     await sharp(defaultBackGroundPath)

@@ -808,6 +808,20 @@ const attributeToNewFilenameMap = {
   "Zzoo Hat_Combed Haircut": "Aurorian_Hat_Zzoo_CombedHairs",
   "Zzoo Hat_Curly": "Aurorian_Hat_Zzoo_CurvedHairs",
   "Zzoo Hat_Playmobil": "Aurorian_Hat_Zzoo_PlaymobileHairs",
+  // "bg_Gradient Blue"
+  // "bg_Special Orange"
+  // "bg_Special Blue"
+  // "bg_Blue"
+  // "bg_Base Background"
+  // "bg_Lagoon"
+  // "bg_Soft Blue"
+  "Gradient Blue": "bg_Gradient Blue",
+  "Special Orange": "bg_Special Orange",
+  "Special Blue": "bg_Special Blue",
+  Blue: "bg_Blue",
+  "Base Background": "bg_Base Background",
+  Lagoon: "bg_Lagoon",
+  "Soft Blue": "bg_Soft Blue",
 };
 
 enum SkinColor {
@@ -1024,7 +1038,8 @@ export function buildAttributes(
   seqToColorName: { [key: string]: string },
   hairlessVersion: { version: number }[],
   whiteshirtVersion: { version: number }[],
-  baseMouthVersion: { version: number }[]
+  baseMouthVersion: { version: number }[],
+  customBgFilePath?: string
 ): ConvertedAttribute[] {
   const sequence = oldAttributes.find(
     ({ trait_type }) => trait_type === " sequence" || trait_type === "sequence"
@@ -1047,15 +1062,11 @@ export function buildAttributes(
   const cloth = oam["Cloth"];
   const eyes = oam["Eyes"];
   const mouth = oam["Mouth"];
+  const bg = oam["Background"];
   const newAttributes = oldAttributes
     .filter(({ trait_type, value }) => {
-      const trait_types = [
-        "Background",
-        "Type",
-        "Clothing",
-        "generation",
-        " sequence",
-      ];
+      const trait_types = ["Type", "Clothing", "generation", " sequence"];
+      const excludeBg = trait_type === "Background" && customBgFilePath;
       const excludeMouth = skin === "Skeleton";
       const exludeHair =
         trait_type === "Hair" &&
@@ -1073,6 +1084,7 @@ export function buildAttributes(
       const excludeCloth = excludeCloth_1 || excludeCloth_2;
       const excludeHat = trait_type === "Hat" && value === "No Trait";
       return (
+        !excludeBg &&
         !exludeHair &&
         !excludeNecklace &&
         !excludeCloth &&
@@ -1113,6 +1125,7 @@ export function buildSharpInputs(
       newAttributesMap[trait_type] = path.join(newAssetsPath, filePath);
     });
   const traitTypeOrder = [
+    "Background",
     "Skin",
     "Cloth",
     "Necklace",
@@ -1123,6 +1136,7 @@ export function buildSharpInputs(
   ];
   const checkIfHead = traitTypeOrder.slice(3);
   const specialOrder = [
+    "Background",
     "Skin",
     "Cloth",
     "Necklace",

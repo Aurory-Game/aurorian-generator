@@ -33,18 +33,27 @@ export class AurorianV2Generator {
     );
     this.seqToColorData = seqToColorData;
   }
-  async generate(sequence: number, bgFilePath: string): Promise<Buffer> {
+  async generate(sequence: number, customBgFilePath?: string): Promise<Buffer> {
     const aurorian = this.auroriansData[sequence];
+
     const newAttributes = buildAttributes(
       aurorian.attributes,
       this.seqToColorData as any as { [key: string]: string },
       this.hairlessVersion,
       this.whiteshirtVersion,
-      this.baseMouthVersion
+      this.baseMouthVersion,
+      customBgFilePath
     );
     const sharpInputs = [
       ...buildSharpInputs(this.imagesDirPath, newAttributes),
     ];
-    return await sharp(bgFilePath).composite(sharpInputs).toBuffer();
+
+    if (customBgFilePath) {
+      return await sharp(customBgFilePath).composite(sharpInputs).toBuffer();
+    }
+
+    return await sharp(sharpInputs[0].input)
+      .composite(sharpInputs.slice(1, -1))
+      .toBuffer();
   }
 }
