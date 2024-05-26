@@ -16,6 +16,7 @@ const {
   backgroundPaths,
   hairlessVersion,
   whiteshirtVersion,
+  baseMouthVersion,
 } = workerData;
 
 (async () => {
@@ -29,7 +30,8 @@ const {
     line,
     backgroundPaths,
     hairlessVersion,
-    whiteshirtVersion
+    whiteshirtVersion,
+    baseMouthVersion
   );
   parentPort.postMessage({ success: true });
 })();

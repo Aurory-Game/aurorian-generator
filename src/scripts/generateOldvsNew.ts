@@ -87,10 +87,22 @@ export async function generateAurorianOldvsNew(
   }.png`;
 
   try {
-    const oldAurorianImage = await sharp(oldAurorianImagePath)
-      .resize(width, height)
-      .withMetadata()
-      .toBuffer();
+    let openTry = 3;
+    let oldAurorianImage;
+    while (oldAurorianImage === undefined && openTry > 0) {
+      try {
+        oldAurorianImage = await sharp(oldAurorianImagePath)
+          .resize(width, height)
+          .withMetadata()
+          .toBuffer();
+      } catch (e) {
+        openTry--;
+        console.log(`Error opening image ${sequence}, retrying.: ${e}`);
+        if (openTry === 0) {
+          throw e;
+        }
+      }
+    }
     const newAttributes = buildAttributes(
       oldAurorian.attributes,
       seqToColorName,
