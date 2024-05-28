@@ -8,12 +8,10 @@
     "build": "rm -rf lib && tsc -p tsconfig.build.json"
   },
   "dependencies": {
-    "sharp": "^0.33.2"
+    "sharp": "^0.33.4"
   },
-  "packageManager": "yarn@4.1.1",
   "devDependencies": {
     "@types/node": "^20.12.12",
-    "@types/progress": "^2",
     "dotenv": "^16.4.5",
     "progress": "^2.0.3",
     "ts-node": "^10.9.2",
