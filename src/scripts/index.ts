@@ -80,7 +80,7 @@ async function runMultiple() {
     .toBuffer();
 
   // for (let index = 330; index < 1000; index++) {
-  for (let index = 0; index < 10; index++) {
+  for (let index = 100; index < 10000; index++) {
     // cl(index);
     await generateAurorianOldvsNew(
       // 50,
@@ -101,6 +101,46 @@ async function runMultiple() {
 }
 
 async function runSingleWithSDK() {
+  const outputFolder = "output";
+  // delete folder first
+  // if (fs.existsSync(outputFolder)) {
+  //   fs.rmdirSync(outputFolder, { recursive: true });
+  // }
+  // fs.mkdirSync(outputFolder);
+  const seqToColorNamePath = path.join(
+    path.resolve(),
+    "deps",
+    "seq_to_color.json"
+  );
+
+  // 0 black, 1 latino, 2 white
+  const seqToColorName = JSON.parse(
+    fs.readFileSync(seqToColorNamePath, "utf-8")
+  );
+
+  const oldAuroriansPath =
+    "/home/levani/tevle/Aurory Dropbox/AuroryProject/processed_files/consolidated_data.json";
+  const oldAurorians = JSON.parse(fs.readFileSync(oldAuroriansPath, "utf-8"));
+  const defaultBackGroundPath =
+    "/home/levani/tevle/Aurory Dropbox/AuroryProject/SocialMedia/Skins/background/BG_Background_Orange.png";
+  const newAssetsPath =
+    "/home/levani/tevle/Aurory Dropbox/AuroryProject/NFT/Aurorian_Tokané";
+
+  const sdk = new AurorianV2Generator(
+    newAssetsPath,
+    oldAuroriansPath,
+    path.resolve(path.resolve(), "deps", "hairless-versions.json"),
+    path.resolve(path.resolve(), "deps", "white-shirt-versions.json"),
+    path.resolve(path.resolve(), "deps", "base-mouth-versions.json"),
+    seqToColorName
+  );
+  const sequence = 5;
+  const { buffer: data } = await sdk.generate(sequence, defaultBackGroundPath);
+  const savePath = path.join(outputFolder, `${sequence}.png`);
+  fs.writeFileSync(savePath, data);
+}
+
+async function runMultipleWithSDK() {
   const outputFolder = "output";
   // delete folder first
   if (fs.existsSync(outputFolder)) {
@@ -134,9 +174,14 @@ async function runSingleWithSDK() {
     path.resolve(path.resolve(), "deps", "base-mouth-versions.json"),
     seqToColorName
   );
-  const sequence = 1;
-  const data = await sdk.generate(sequence, defaultBackGroundPath);
-  fs.writeFileSync(path.join(outputFolder, `${sequence}.png`), data);
+  const start = 0;
+  const end = 1;
+  for (let sequence = start; sequence < end; sequence++) {
+    const sequence = 5;
+    const { buffer: data } = await sdk.generate(sequence);
+    const savePath = path.join(outputFolder, `${sequence}.png`);
+    fs.writeFileSync(savePath, data);
+  }
 }
 
-runMultiple();
+runMultipleWithSDK();

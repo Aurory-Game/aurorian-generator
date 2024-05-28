@@ -1,6 +1,6 @@
 import * as fs from "fs";
 import path from "path";
-import { buildAttributes, buildSharpInputs } from "./attributes";
+import { Attribute, buildAttributes, buildSharpInputs } from "./attributes";
 import sharp from "sharp";
 
 export class AurorianV2Generator {
@@ -33,8 +33,11 @@ export class AurorianV2Generator {
     );
     this.seqToColorData = seqToColorData;
   }
-  async generate(sequence: number, customBgFilePath?: string): Promise<Buffer> {
-    const aurorian = this.auroriansData[sequence];
+  async generate(
+    sequence: number,
+    customBgFilePath?: string
+  ): Promise<{ buffer: Buffer; attributes: Attribute[] }> {
+    const aurorian = this.auroriansData[sequence - 1];
 
     const newAttributes = buildAttributes(
       aurorian.attributes,
@@ -44,16 +47,35 @@ export class AurorianV2Generator {
       this.baseMouthVersion,
       customBgFilePath
     );
+    const attributes = newAttributes.flatMap((a) => a.attributes.flat());
+    attributes.push(
+      {
+        display_type: "number",
+        trait_type: "sequence",
+        value: sequence,
+      },
+      {
+        trait_type: "Type",
+        value: "Aurorian",
+      }
+    );
+    console.log(attributes);
     const sharpInputs = [
       ...buildSharpInputs(this.imagesDirPath, newAttributes),
     ];
 
     if (customBgFilePath) {
-      return await sharp(customBgFilePath).composite(sharpInputs).toBuffer();
+      return {
+        buffer: await sharp(customBgFilePath).composite(sharpInputs).toBuffer(),
+        attributes,
+      };
     }
 
-    return await sharp(sharpInputs[0].input)
-      .composite(sharpInputs.slice(1, -1))
-      .toBuffer();
+    return {
+      buffer: await sharp(sharpInputs[0].input)
+        .composite(sharpInputs.slice(1, -1))
+        .toBuffer(),
+      attributes,
+    };
   }
 }

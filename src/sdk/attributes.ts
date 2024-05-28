@@ -824,6 +824,137 @@ const attributeToNewFilenameMap = {
   "Soft Blue": "bg_Soft Blue",
 };
 
+const oldNameToNewName = {
+  // Cloth
+  "Open Leather Jacket": "Commander (open)",
+  Scarf: "Collector (open)",
+  "Open Jacket": "Trader (open)",
+  "Zzoo Outfit": "Zzoo Knight",
+  "Dracurve Outfit": "Dracurve Knight",
+  "Dipking Outfit": "Dipking Knight",
+  "Sam Outfit": "Tokane Knight",
+  "Axobubble Outfit": "Axobubble Knight",
+  "Helios Outfit": "Helios Knight",
+  "Beetlefox Outfit": "Beetlefox Knight",
+  "Dinobit Outfit": "Dinobit Knight",
+  "Bitebit Outfit": "Bitebit Knight",
+  "Unika Outfit": "Unika Knight",
+  "Classic Jacket": "Extractor, Miner",
+  "Green Sweater": "Adventurer",
+  "Shoulder Straps": "Cartographer",
+  "Hawaii Shirt": "Cartographer",
+  "Jean Jacket": "Trader",
+  "Pink Stripes": "Collector",
+  "Leather Jacket": "Commander",
+  "Puffy Jacket": "stableman, Rider?",
+  Polo: "Noble",
+  Jacket: "Explorer",
+  "Black Hoodie": "Cultist",
+  "Black T-Shirt": "Squire",
+  "Classy Outfit": "Lord",
+  Overalls: "Blacksmith",
+  "Yellow Stripes": "Guard",
+  "Base Cloth": "Base Cloth",
+  "Base Cloth_1": "Humble Townsman",
+  "Base Cloth_2": "Humble Adventurer",
+  "Base Cloth_3": "Humble Peasant",
+  // hat
+  "Unika Har": "Unika Hat",
+  "Helios Hat": "Helios Hat",
+  "Dipking Hat": "Dipking Hat",
+  "Dinobit Hat": "Dinobit Hat",
+  "Dracurve Hat": "Dracurve Hat",
+  "Zzoo Hat": "Zzoo Hat",
+  "Axoubble Hat": "Axoubble Hat",
+  "Crazy Horse Hat": "Eomer's Helmet",
+  "Bitebit Hat": "Bitebit Hat",
+  "Beetlefox Hat": "Beetlefox Hat",
+  "Jotaro Cap": "It's-a-me Cap, Invincibility Cap?",
+  "Dragon Hat": "Scholar Hat",
+  Moogle: "Moogle Beanie",
+  "Luffy Hat": "Straw Hat",
+  "Sam Hat": "Cosplay Wig",
+  "Witch Hat": "Sorting Hat",
+  "Plague Hat'": "Top Hat",
+  "Doughnut Hat'": "Jester Hat",
+  "Feather Hat": "Cavalier Hat",
+  "Twitter Hat": "Feather Hat",
+  "Gavroche Hat": "Gavroche Cap",
+  "Phantom Cap": "Backpack Cap",
+  "Raccoon Hat": "Raccoin Hat",
+  "Beret Hat": "Menestrel Hat",
+  "Cute headphone": "Gamer Headphone",
+  Crown: "Jeweled Crown",
+  "Big Crown": "Crown",
+  // hair
+  "Long Blob Hair": "Long Blob Hair",
+  "White Hair": "White Hair",
+  "Brown Dreadlocks": "Attached Dreadlocks",
+  "Purple Dreadlocks": "Short Dreadlocks",
+  "Blob Hair": "Blob Hair",
+  "Clementine Hair": "Blue Hair",
+  "Zero Two Hair": "Zero Two Hair",
+  "Blond Hair Attached": "Blond Hair",
+  Pigtails: "Bunches",
+  Shaved: "Shaved",
+  Undercut: "Purple hair",
+  "Green Hair": "Long Hair",
+  Curly: "Curved Hair",
+  Playmobil: "Short Hair",
+  "Combed Haircut": "Combed Hair",
+  // mouth
+  Angry: "Angry",
+  "Barely Angry": "Open",
+  "Steampunk Mask": "Grillz",
+  "Paint Mask": "Smoke",
+  "Bane Mask": "Scars",
+  Lollipop: "Bubble Pipe",
+  "Oni Mask": "Oni Tattoo",
+  "Big Smile": "Smile",
+  Grin: "Grin",
+  "Plague Mask": "Fangs",
+  "Zipper Mask": "Whiskers",
+  "Cat Mask": "Tongue out",
+  "Base Mouth": "Base Mouth",
+  "Base Mouth_1": "Neutral",
+  "Base Mouth_2": "Neutral 2",
+  // eyes
+  "Cat Eyes Black": "Cat Brown Pupil",
+  "Aurory Glasses": "Aurory Eyes",
+  "Cat Black Pupil": "Cat Brown Pupil",
+  "Spring Glasses": "Heterochromia Eyes",
+  "Cat Green Pupil": "Cat Green Pupil",
+  "Steampunk Eyes": "Steampunk Eyes",
+  "Green Eyes": "Cat Yellow Pupil",
+  "Blue Skull Glasses": "Skull Eyes",
+  Green: "Yellow Eyes",
+  "Aave Glasses": "Golden Eyes",
+  "Black Eyes": "Blue Eyes",
+  "Heart Glasses": "Heart Eyes",
+  "Viper Shades": "Vibrant eyes",
+  "Red Eyes": "Red Eyes",
+  "Base Eyes": "Base Eyes",
+
+  "Solana Necklace": "Gold Necklace",
+  "Flower Necklace": "Flower Necklace",
+  "Shark Necklace": "Bone Necklace",
+  "Aurory Necklace": "Coral Necklace",
+
+  "Golden Skeleton": "Golden Skeleton",
+  Helios: "Helios",
+  Skeleton: "Skeleton",
+  "Golden Blob": "Golden Blob",
+  Zombie: "Zombie",
+  "Solana Blob": "Solana Blob",
+  Human: "Human",
+
+  Blue: "Blue",
+  Lagoon: "Lagoon",
+  "Gradient Blue": "Gradient Blue",
+  "Soft Blue": "Soft Blue",
+  "Base Background": "Base Background",
+};
+
 enum SkinColor {
   Black = 0,
   Latino = 1,
@@ -834,31 +965,56 @@ enum COMMANDS {
   SKIP = "SKIP",
 }
 
+export interface Attribute {
+  display_type?: "number";
+  trait_type: string;
+  value: string | number;
+}
+
+interface KeyAttribute {
+  key: string;
+  attributes: Attribute[];
+}
+
 export function mouthFilenameConverter(
   value: string,
   skin: string,
   color: string,
   sequence: number,
   baseMouthVersion: { version: number }[]
-): string {
+): KeyAttribute {
   let key: string;
+  let attributes: Attribute[] = [];
+
   if (value === "Base Mouth") {
     if (skin === "Human") {
       const version = baseMouthVersion[sequence].version
         ? baseMouthVersion[sequence].version + 1
         : 1;
       key = `${version}_Base Mouth_${color}`;
+      attributes.push({
+        trait_type: "Mouth",
+        value: oldNameToNewName[`Base Mouth_${version}`],
+      });
     } else {
       key = `Base Mouth_${skin}`;
+      attributes.push({
+        trait_type: "Mouth",
+        value: oldNameToNewName[`Base Mouth`],
+      });
     }
   } else {
+    attributes.push({
+      trait_type: "Mouth",
+      value: oldNameToNewName[value],
+    });
     if (skin === "Human") {
       key = `${value}_${color}`;
     } else {
       key = `${value}_${skin}`;
     }
   }
-  return key;
+  return { key, attributes };
 }
 
 export function hairFilenameConverter(
@@ -900,27 +1056,85 @@ export function necklaceFilenameConverter(
   color: string,
   sequence: number,
   whiteshirtVersion: { version: number }[]
-): string {
+): KeyAttribute {
   let key: string;
-  if (cloth === "No Trait" || cloth === "Base Cloth") {
-    if (necklace === "No Trait") {
-      key = "No Trait_1"; // @TODO: should be 1 to 3
-    } else if (skin !== "Human") {
-      key = `No Trait_${skin}_${necklace}`;
-    } else {
+  let attributes: Attribute[] = [
+    {
+      trait_type: "Necklace",
+      value: oldNameToNewName[necklace],
+    },
+  ];
+
+  if (skin === "Human") {
+    if (cloth === "Base Cloth" && necklace === "No Trait") {
+      key = `No Trait_${whiteshirtVersion[sequence].version + 1}`;
+      attributes.push({
+        trait_type: "Cloth",
+        value:
+          oldNameToNewName[
+            `${cloth}_${whiteshirtVersion[sequence].version + 1}`
+          ],
+      });
+    } else if (cloth === "Base Cloth") {
       key = `No Trait_${whiteshirtVersion[sequence].version + 1}_${necklace}`;
+      console.log(`${cloth}_${whiteshirtVersion[sequence].version + 1}`);
+      attributes.push({
+        trait_type: "Cloth",
+        value:
+          oldNameToNewName[
+            `${cloth}_${whiteshirtVersion[sequence].version + 1}`
+          ],
+      });
+    } else if (necklace === "No Trait") {
+      key = `${cloth}`;
+      attributes.push({
+        trait_type: "Cloth",
+        value: oldNameToNewName[cloth],
+      });
+    } else {
+      key = `${cloth}_${necklace}`;
+      attributes.push({
+        trait_type: "Cloth",
+        value: oldNameToNewName[cloth],
+      });
     }
   } else {
-    key = `${cloth}_${necklace}`;
+    attributes.push({
+      trait_type: "Cloth",
+      value: oldNameToNewName[cloth],
+    });
+    if (cloth === "Base Cloth" && necklace === "No Trait") {
+      throw new Error(
+        `Error (necklaceFilenameConverter): cloth === "Base Cloth" && necklace === "No Trait"`
+      );
+    } else if (cloth === "Base Cloth") {
+      key = `No Trait_${skin}_${necklace}`;
+    } else if (necklace === "No Trait") {
+      key = `${cloth}_${skin}`;
+    } else {
+      key = `${cloth}_${necklace}`;
+    }
   }
-  return key;
+
+  return { key, attributes };
 }
 
 export function hatFilenameConverter(
   skin: string,
   hat: string,
   hair: string
-): string {
+): KeyAttribute {
+  let attributes: Attribute[] = [
+    {
+      trait_type: "Hat",
+      value: oldNameToNewName[hat],
+    },
+    {
+      trait_type: "Hair",
+      value: oldNameToNewName[hair.trim()],
+    },
+  ];
+
   let key = `${hat}_${hair.trim()}`;
   if (skin !== "Human") {
     const skinNameToFileSuffix: { [key: string]: string } = {
@@ -930,7 +1144,7 @@ export function hatFilenameConverter(
     };
     key += `_${skinNameToFileSuffix[skin]}`;
   }
-  return key;
+  return { key, attributes };
 }
 
 export function skinFilenameConverter(skin: string, color: string): string {
@@ -953,16 +1167,12 @@ export function eyesFilenameConverter(
   }
 }
 
-interface Attribute {
-  trait_type: string;
-  value: string;
-}
-
 interface ConvertedAttribute {
   trait_type: string;
   value: string;
   filePath: string;
   skinColor: string | null;
+  attributes: Attribute[];
 }
 
 export function attributeConverter(
@@ -975,47 +1185,88 @@ export function attributeConverter(
   whiteshirtVersion: { version: number }[],
   baseMouthVersion: { version: number }[]
 ): ConvertedAttribute | COMMANDS {
+  console.log(oldAttributes);
   const { trait_type, value: valueRaw } = attribute;
-  const value = valueRaw.trim();
+  const value = (valueRaw as string).trim();
   let key: string;
+  let attributes: Attribute[] = [];
   if (trait_type === "Skin") {
     key = skinFilenameConverter(skin, color);
+    attributes.push({
+      trait_type: "Skin",
+      value: oldNameToNewName[skin],
+    });
   } else if (trait_type === "Mouth") {
-    key = mouthFilenameConverter(
+    const keyWithAttributeKeys = mouthFilenameConverter(
       value,
       skin,
       color,
       sequence,
       baseMouthVersion
     );
+    key = keyWithAttributeKeys.key;
+    attributes = keyWithAttributeKeys.attributes;
   } else if (trait_type === "Hair") {
     key = hairFilenameConverter(value, skin, color, sequence, hairlessVersion);
+    attributes.push({
+      trait_type: "Hair",
+      value: oldNameToNewName[value],
+    });
   } else if (trait_type === "Necklace") {
     const cloth = oldAttributes.find((a) => a.trait_type === "Cloth")?.value;
-    key = necklaceFilenameConverter(
+    const keyWithAttributeKeys = necklaceFilenameConverter(
       value,
       skin,
-      cloth!,
+      cloth! as string,
       color,
       sequence,
       whiteshirtVersion
     );
+    key = keyWithAttributeKeys.key;
+    attributes = keyWithAttributeKeys.attributes;
   } else if (trait_type === "Hat") {
     const hair = oldAttributes.find((a) => a.trait_type === "Hair")?.value;
-    key = hatFilenameConverter(skin, value, hair!);
+    const keyWithAttributeKeys = hatFilenameConverter(
+      skin,
+      value,
+      hair! as string
+    );
+    key = keyWithAttributeKeys.key;
+    attributes = keyWithAttributeKeys.attributes;
   } else if (trait_type === "Eyes") {
     key = eyesFilenameConverter(value, skin, color);
+    attributes.push({
+      trait_type: "Eyes",
+      value: oldNameToNewName[value],
+    });
   } else if (trait_type === "Cloth") {
     if (value === "No Trait" || value === "Base Cloth") {
       if (skin !== "Human") {
         throw new Error("This shouldn't happen");
       }
+      attributes.push({
+        trait_type: "Cloth",
+        value:
+          oldNameToNewName[
+            `Base Cloth_${whiteshirtVersion[sequence].version + 1}`
+          ],
+      });
       key = `No Trait_${whiteshirtVersion[sequence].version + 1}`;
     } else {
       key = value;
+      attributes.push({
+        trait_type: "Cloth",
+        value: oldNameToNewName[value],
+      });
     }
-  } else {
+  } else if (trait_type === "Background") {
     key = value;
+    attributes.push({
+      trait_type: "Background",
+      value: oldNameToNewName[value],
+    });
+  } else {
+    throw new Error("Unknown trait_type " + trait_type);
   }
   if (key === COMMANDS.SKIP) {
     return COMMANDS.SKIP;
@@ -1030,6 +1281,7 @@ export function attributeConverter(
     value: value,
     filePath: filePath,
     skinColor: skinColor,
+    attributes,
   };
 }
 
@@ -1050,7 +1302,7 @@ export function buildAttributes(
   const color = seqToColorName[sequence];
   const oam: { [key: string]: string } = {};
   oldAttributes.forEach(({ trait_type, value }) => {
-    oam[trait_type] = value;
+    oam[trait_type] = value as string;
   });
   const skin = oam["Skin"];
   if (!skin) {
@@ -1083,6 +1335,7 @@ export function buildAttributes(
         necklace !== "No Trait";
       const excludeCloth = excludeCloth_1 || excludeCloth_2;
       const excludeHat = trait_type === "Hat" && value === "No Trait";
+
       return (
         !excludeBg &&
         !exludeHair &&
@@ -1095,7 +1348,7 @@ export function buildAttributes(
     })
     .map(({ trait_type, value }) =>
       attributeConverter(
-        { trait_type, value: value.trim() },
+        { trait_type, value: (value as string).trim() },
         oldAttributes,
         skin,
         color,
@@ -1134,7 +1387,7 @@ export function buildSharpInputs(
     "Hat",
     "Hair",
   ];
-  const checkIfHead = traitTypeOrder.slice(3);
+  const checkIfHead = traitTypeOrder.slice(-4);
   const specialOrder = [
     "Background",
     "Skin",
