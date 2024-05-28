@@ -1,9 +1,12 @@
 {
   "name": "@aurory/aurorian-generator",
-  "version": "0.1.1",
+  "version": "0.1.4",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "license": "MIT",
+  "files": [
+    "lib"
+  ],
   "scripts": {
     "sp": "ts-node \"$@\"",
     "build": "rm -rf lib && tsc -p tsconfig.build.json"
