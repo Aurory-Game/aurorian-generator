@@ -73,7 +73,7 @@ export class AurorianV2Generator {
 
     return {
       buffer: await sharp(sharpInputs[0].input)
-        .composite(sharpInputs.slice(1, -1))
+        .composite(sharpInputs.slice(1))
         .toBuffer(),
       attributes,
     };
