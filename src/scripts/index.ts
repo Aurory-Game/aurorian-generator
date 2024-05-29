@@ -4,7 +4,7 @@ import sharp from "sharp";
 import { generateAurorianOldvsNew } from "./generateOldvsNew";
 import { generateSingle } from "./generateSingle";
 import { AurorianV2Generator } from "../sdk/index";
-
+// import { AurorianV2Generator } from "@aurory/aurorian-generator";
 const width = 2048;
 const height = 2560;
 
@@ -143,10 +143,10 @@ async function runSingleWithSDK() {
 async function runMultipleWithSDK() {
   const outputFolder = "output";
   // delete folder first
-  if (fs.existsSync(outputFolder)) {
-    fs.rmdirSync(outputFolder, { recursive: true });
-  }
-  fs.mkdirSync(outputFolder);
+  // if (fs.existsSync(outputFolder)) {
+  //   fs.rmdirSync(outputFolder, { recursive: true });
+  // }
+  // fs.mkdirSync(outputFolder);
   const seqToColorNamePath = path.join(
     path.resolve(),
     "deps",
@@ -174,13 +174,14 @@ async function runMultipleWithSDK() {
     path.resolve(path.resolve(), "deps", "base-mouth-versions.json"),
     seqToColorName
   );
-  const start = 0;
-  const end = 1;
+  const start = 1;
+  const end = 100;
   for (let sequence = start; sequence < end; sequence++) {
-    const sequence = 5;
-    const { buffer: data } = await sdk.generate(sequence);
+    const { buffer: data, metadata } = await sdk.generate(sequence);
     const savePath = path.join(outputFolder, `${sequence}.png`);
+    const savePathJson = path.join(outputFolder, `${sequence}.json`);
     fs.writeFileSync(savePath, data);
+    fs.writeFileSync(savePathJson, JSON.stringify(metadata, null, 2));
   }
 }
 

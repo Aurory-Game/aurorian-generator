@@ -1077,7 +1077,6 @@ export function necklaceFilenameConverter(
       });
     } else if (cloth === "Base Cloth") {
       key = `No Trait_${whiteshirtVersion[sequence].version + 1}_${necklace}`;
-      console.log(`${cloth}_${whiteshirtVersion[sequence].version + 1}`);
       attributes.push({
         trait_type: "Cloth",
         value:
@@ -1101,13 +1100,13 @@ export function necklaceFilenameConverter(
   } else {
     attributes.push({
       trait_type: "Cloth",
-      value: oldNameToNewName[cloth],
+      value: cloth === "No Trait" ? cloth : oldNameToNewName[cloth],
     });
     if (cloth === "Base Cloth" && necklace === "No Trait") {
       throw new Error(
         `Error (necklaceFilenameConverter): cloth === "Base Cloth" && necklace === "No Trait"`
       );
-    } else if (cloth === "Base Cloth") {
+    } else if (cloth === "Base Cloth" || cloth === "No Trait") {
       key = `No Trait_${skin}_${necklace}`;
     } else if (necklace === "No Trait") {
       key = `${cloth}_${skin}`;
@@ -1124,6 +1123,7 @@ export function hatFilenameConverter(
   hat: string,
   hair: string
 ): KeyAttribute {
+  const hairT = hair.trim();
   let attributes: Attribute[] = [
     {
       trait_type: "Hat",
@@ -1131,11 +1131,11 @@ export function hatFilenameConverter(
     },
     {
       trait_type: "Hair",
-      value: oldNameToNewName[hair.trim()],
+      value: hairT === "No Trait" ? hairT : oldNameToNewName[hairT],
     },
   ];
 
-  let key = `${hat}_${hair.trim()}`;
+  let key = `${hat}_${hairT}`;
   if (skin !== "Human") {
     const skinNameToFileSuffix: { [key: string]: string } = {
       "Solana Blob": "Blob",
@@ -1185,7 +1185,6 @@ export function attributeConverter(
   whiteshirtVersion: { version: number }[],
   baseMouthVersion: { version: number }[]
 ): ConvertedAttribute | COMMANDS {
-  console.log(oldAttributes);
   const { trait_type, value: valueRaw } = attribute;
   const value = (valueRaw as string).trim();
   let key: string;
@@ -1210,7 +1209,7 @@ export function attributeConverter(
     key = hairFilenameConverter(value, skin, color, sequence, hairlessVersion);
     attributes.push({
       trait_type: "Hair",
-      value: oldNameToNewName[value],
+      value: value === "No Trait" ? value : oldNameToNewName[value],
     });
   } else if (trait_type === "Necklace") {
     const cloth = oldAttributes.find((a) => a.trait_type === "Cloth")?.value;
@@ -1223,6 +1222,7 @@ export function attributeConverter(
       whiteshirtVersion
     );
     key = keyWithAttributeKeys.key;
+    console.log(key);
     attributes = keyWithAttributeKeys.attributes;
   } else if (trait_type === "Hat") {
     const hair = oldAttributes.find((a) => a.trait_type === "Hair")?.value;
@@ -1359,6 +1359,7 @@ export function buildAttributes(
       )
     )
     .filter((a) => a !== COMMANDS.SKIP) as ConvertedAttribute[];
+
   return newAttributes;
 }
 
