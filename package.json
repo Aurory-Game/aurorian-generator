@@ -21,5 +21,22 @@
     "progress": "^2.0.3",
     "ts-node": "^10.9.2",
     "typescript": "^5.4.5"
-  }
+  },
+  "os": [
+    "current",
+    "darwin",
+    "linux",
+    "win32"
+  ],
+  "cpu": [
+    "current",
+    "x64",
+    "arm64"
+  ],
+  "libc": [
+    "current",
+    "glibc",
+    "musl"
+  ],
+  "packageManager": "yarn@4.2.2"
 }
