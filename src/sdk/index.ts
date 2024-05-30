@@ -1,7 +1,7 @@
 import * as fs from "fs";
 import path from "path";
 import { Attribute, buildAttributes, buildSharpInputs } from "./attributes";
-import sharp from "sharp";
+import sharp, { Sharp } from "sharp";
 
 interface Metadata {
   name: string;
@@ -28,6 +28,14 @@ interface File {
 interface Creator {
   address: string;
   share: number;
+}
+
+interface GenerateOutput {
+  images: {
+    full: Buffer;
+    mini: Buffer;
+  };
+  metadata: Metadata;
 }
 
 export class AurorianV2Generator {
@@ -147,7 +155,7 @@ export class AurorianV2Generator {
   async generate(
     sequence: number,
     customBgFilePath?: string
-  ): Promise<{ buffer: Buffer; metadata: Metadata }> {
+  ): Promise<GenerateOutput> {
     const aurorian = this.auroriansData[sequence - 1];
     const attributesData = buildAttributes(
       aurorian.attributes,
@@ -168,18 +176,20 @@ export class AurorianV2Generator {
     const sharpInputs = [
       ...buildSharpInputs(this.imagesDirPath, attributesData),
     ];
+    let full: Sharp;
 
     if (customBgFilePath) {
-      return {
-        buffer: await sharp(customBgFilePath).composite(sharpInputs).toBuffer(),
-        metadata,
-      };
+      full = await sharp(customBgFilePath).composite(sharpInputs);
+    } else {
+      full = await sharp(sharpInputs[0].input).composite(sharpInputs.slice(1));
     }
 
+    const mini = full.clone().resize(512, 640);
     return {
-      buffer: await sharp(sharpInputs[0].input)
-        .composite(sharpInputs.slice(1))
-        .toBuffer(),
+      images: {
+        full: await full.toBuffer(),
+        mini: await mini.toBuffer(),
+      },
       metadata,
     };
   }

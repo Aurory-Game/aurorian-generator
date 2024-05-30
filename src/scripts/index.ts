@@ -134,9 +134,11 @@ async function runSingleWithSDK() {
     seqToColorName
   );
   const sequence = 5;
-  const { buffer: data } = await sdk.generate(sequence, defaultBackGroundPath);
+  const {
+    images: { full, mini },
+  } = await sdk.generate(sequence, defaultBackGroundPath);
   const savePath = path.join(outputFolder, `${sequence}.png`);
-  fs.writeFileSync(savePath, data);
+  fs.writeFileSync(savePath, full);
 }
 
 async function runMultipleWithSDK() {
@@ -176,10 +178,13 @@ async function runMultipleWithSDK() {
   const start = 1;
   const end = 100;
   for (let sequence = start; sequence < end; sequence++) {
-    const { buffer: data, metadata } = await sdk.generate(sequence);
+    const {
+      images: { full, mini },
+      metadata,
+    } = await sdk.generate(sequence);
     const savePath = path.join(outputFolder, `${sequence}.png`);
     const savePathJson = path.join(outputFolder, `${sequence}.json`);
-    fs.writeFileSync(savePath, data);
+    fs.writeFileSync(savePath, full);
     fs.writeFileSync(savePathJson, JSON.stringify(metadata, null, 2));
   }
 }
