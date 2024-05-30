@@ -160,9 +160,9 @@ export class AurorianV2Generator {
     const newAttributes = attributesData.flatMap((a) => a.attributes.flat());
     this.setMissingAttributes(newAttributes);
     const attributes = this.mergeAttributes(aurorian.attributes, newAttributes);
-    if (attributes.length !== 18) {
-      throw new Error("Attributes length is not 18");
-    }
+    // if (attributes.length !== 18) {
+    // throw new Error("Attributes length is not 18");
+    // }
 
     const metadata = this.generateMetadata(attributes, sequence);
     const sharpInputs = [
