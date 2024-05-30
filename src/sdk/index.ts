@@ -176,18 +176,20 @@ export class AurorianV2Generator {
     const sharpInputs = [
       ...buildSharpInputs(this.imagesDirPath, attributesData),
     ];
-    let full: Sharp;
+    let full: Buffer;
 
     if (customBgFilePath) {
-      full = await sharp(customBgFilePath).composite(sharpInputs);
+      full = await sharp(customBgFilePath).composite(sharpInputs).toBuffer();
     } else {
-      full = await sharp(sharpInputs[0].input).composite(sharpInputs.slice(1));
+      full = await sharp(sharpInputs[0].input)
+        .composite(sharpInputs.slice(1))
+        .toBuffer();
     }
 
-    const mini = full.clone().resize(512, 640);
+    const mini = await sharp(full).resize(512, 640);
     return {
       images: {
-        full: await full.toBuffer(),
+        full,
         mini: await mini.toBuffer(),
       },
       metadata,

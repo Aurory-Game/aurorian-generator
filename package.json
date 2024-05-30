@@ -1,6 +1,6 @@
 {
   "name": "@aurory/aurorian-generator",
-  "version": "0.3.0",
+  "version": "0.4.2",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "license": "MIT",
@@ -10,7 +10,8 @@
   ],
   "scripts": {
     "sp": "ts-node -r dotenv/config \"$@\"",
-    "build": "rm -rf lib && tsc -p tsconfig.build.json"
+    "build": "rm -rf lib && tsc -p tsconfig.build.json",
+    "prepublish": "yarn build"
   },
   "dependencies": {
     "sharp": "^0.33.4"

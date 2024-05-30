@@ -144,10 +144,10 @@ async function runSingleWithSDK() {
 async function runMultipleWithSDK() {
   const outputFolder = "output";
   // delete folder first
-  // if (fs.existsSync(outputFolder)) {
-  //   fs.rmdirSync(outputFolder, { recursive: true });
-  // }
-  // fs.mkdirSync(outputFolder);
+  if (fs.existsSync(outputFolder)) {
+    fs.rmdirSync(outputFolder, { recursive: true });
+  }
+  fs.mkdirSync(outputFolder);
   const seqToColorNamePath = path.join(
     path.resolve(),
     "deps",
@@ -183,8 +183,10 @@ async function runMultipleWithSDK() {
       metadata,
     } = await sdk.generate(sequence);
     const savePath = path.join(outputFolder, `${sequence}.png`);
+    const savePathMini = path.join(outputFolder, `${sequence}-mini.png`);
     const savePathJson = path.join(outputFolder, `${sequence}.json`);
     fs.writeFileSync(savePath, full);
+    fs.writeFileSync(savePathMini, mini);
     fs.writeFileSync(savePathJson, JSON.stringify(metadata, null, 2));
   }
 }
