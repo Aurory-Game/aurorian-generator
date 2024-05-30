@@ -4,7 +4,6 @@ import sharp from "sharp";
 import { generateAurorianOldvsNew } from "./generateOldvsNew";
 import { generateSingle } from "./generateSingle";
 import { AurorianV2Generator } from "../sdk/index";
-// import { AurorianV2Generator } from "@aurory/aurorian-generator";
 const width = 2048;
 const height = 2560;
 

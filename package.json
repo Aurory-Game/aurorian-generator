@@ -9,17 +9,20 @@
     "deps"
   ],
   "scripts": {
-    "sp": "ts-node \"$@\"",
+    "sp": "ts-node -r dotenv/config \"$@\"",
     "build": "rm -rf lib && tsc -p tsconfig.build.json"
   },
   "dependencies": {
     "sharp": "^0.33.4"
   },
   "devDependencies": {
+    "@solana/web3.js": "^1.91.8",
     "@types/node": "^20.12.12",
+    "bs58": "^5.0.0",
     "dotenv": "^16.4.5",
     "progress": "^2.0.3",
     "ts-node": "^10.9.2",
+    "tweetnacl": "^1.0.3",
     "typescript": "^5.4.5"
   },
   "os": [
