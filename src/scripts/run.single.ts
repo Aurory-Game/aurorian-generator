@@ -89,7 +89,7 @@ async function runMultiple() {
         });
 
         worker.on("message", () => {
-          bar.tick(10);
+          bar.tick(100);
           worker.terminate().then(() => resolve(1));
         });
         worker.on("error", (error) => {
@@ -104,7 +104,7 @@ async function runMultiple() {
 
     let promises = [];
     await PromisePool.withConcurrency(numThreads)
-      .for(Array.from({ length: 1000 }, (_, i) => i * 10 + 1))
+      .for(Array.from({ length: 100 }, (_, i) => start + i * 10 + 1))
       // .for([9991])
       .process(async (index) => {
         const worker = await createWorkerPromise(index);

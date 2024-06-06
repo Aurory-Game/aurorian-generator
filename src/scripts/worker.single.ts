@@ -17,16 +17,22 @@ const { index, sdkParams, outputFolder } = workerData;
     sdkParams[4],
     sdkParams[5]
   );
-  for (let indexLocal = index; indexLocal < index + 10; indexLocal++) {
+  for (let indexLocal = index; indexLocal < index + 100; indexLocal++) {
     try {
       const {
         images: { full, mini },
         metadata,
       } = await sdk.generate(indexLocal);
-      const savePathMini = path.join(outputFolder, `${indexLocal}-mini.png`);
-      const savePathJson = path.join(outputFolder, `${indexLocal}.json`);
+      // const savePathMini = path.join(outputFolder, "mini", `${indexLocal}.png`);
+      const savePathFull = path.join(outputFolder, "full", `${indexLocal}.png`);
+      // const savePathJson = path.join(
+      //   outputFolder,
+      //   "metadata",
+      //   `${indexLocal}.json`
+      // );
 
-      fs.writeFileSync(savePathMini, mini);
+      fs.writeFileSync(savePathFull, full);
+      // fs.writeFileSync(savePathMini, mini);
       // fs.writeFileSync(savePathJson, JSON.stringify(metadata, null, 2));
     } catch (e) {
       console.error(e);

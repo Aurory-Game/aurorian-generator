@@ -1,14 +1,22 @@
 import * as fs from "fs";
 import path from "path";
-import { Attribute, buildAttributes, buildSharpInputs } from "./attributes";
+import {
+  Attribute,
+  buildAttributes,
+  buildSharpInputs,
+  generateHandMadeAurorian,
+} from "./attributes";
 import sharp, { Sharp } from "sharp";
-import { log } from "../scripts/core-airdrop/utils";
 import { get } from "https";
 
 export enum AurorianType {
   AURORIAN = "Aurorian",
   HELIOS = "Helios",
 }
+
+export const FULL_OUTFIT_SEQUENCES = [
+  9982, 9983, 9984, 9985, 9986, 9987, 9988, 9989, 9990,
+];
 
 export enum AurorianSkin {
   HUMAN = "Human",
@@ -60,7 +68,7 @@ interface GenerateOutput {
   metadata: Metadata;
   supported: boolean;
 }
-interface AurorianData {
+export interface AurorianData {
   name: string;
   attributes: Attribute[];
 }
@@ -226,11 +234,12 @@ export class AurorianV2Generator {
     aurorian: AurorianData,
     sequence: number
   ): Metadata {
+    const oldAttributesClone = JSON.parse(JSON.stringify(aurorian.attributes));
     const attributes = this.mergeAttributes(
       aurorian.attributes.filter(
         ({ trait_type }) => !["Clothing"].includes(trait_type)
       ),
-      aurorian.attributes.filter(
+      oldAttributesClone.filter(
         ({ trait_type }) =>
           ![" sequence", "sequence", "generation", "Type", "Clothing"].includes(
             trait_type
@@ -242,7 +251,7 @@ export class AurorianV2Generator {
   }
 
   isAssetSupported(aurorian: AurorianData, sequence: number): boolean {
-    if (sequence > 9982) return false;
+    if (sequence > 9981) return false;
     let aurorianType;
     let aurorianSkin;
 
@@ -274,8 +283,8 @@ export class AurorianV2Generator {
     sequence: number
   ): Promise<{ full: Buffer; mini: Buffer }> {
     const urls = [
-      `https://aurorians.cdn.aurory.io/aurorians-v2/current/images/full/${sequence}.png`,
-      `https://aurorians.cdn.aurory.io/aurorians-v2/current/images/mini/${sequence}.png`,
+      `https://aurorians.cdn.aurory.io/aurorians-v2/backup/images/full/${sequence}.png`,
+      `https://aurorians.cdn.aurory.io/aurorians-v2/backup/images/mini/${sequence}.png`,
     ];
 
     const fetchImage = (url: string): Promise<Buffer> => {
@@ -313,99 +322,76 @@ export class AurorianV2Generator {
     customBgFilePath?: string,
     fetchUnsupportedImage = false
   ): Promise<GenerateOutput> {
-    debugger;
+    if (sequence > 9990) {
+      throw new Error("Max supported sequence is 9990.");
+    }
+
     const aurorian = this.auroriansData[sequence - 1];
     if (!this.isAssetSupported(aurorian, sequence)) {
       const metadata = this.generateMetadataForUnsupported(aurorian, sequence);
-      let full = null;
-      let mini = null;
+      let full, mini;
+
       if (fetchUnsupportedImage) {
         const res = await this.fetchAurorianImages(sequence);
         full = res.full;
         mini = res.mini;
+
+        return {
+          images: { full, mini },
+          metadata,
+          supported: false,
+        };
+      } else {
+        const { bgPath, aurorianPath } = await generateHandMadeAurorian(
+          aurorian.attributes,
+          sequence,
+          this.imagesDirPath
+        );
+        const sharpInputs = [
+          {
+            input: aurorianPath,
+            left: 0,
+            top: 0,
+          },
+        ];
+        if (customBgFilePath) {
+          full = await sharp(customBgFilePath)
+            .composite(sharpInputs)
+            .toBuffer();
+        } else {
+          full = await sharp(bgPath).composite(sharpInputs).toBuffer();
+        }
+        const mini = await sharp(full).resize(512, 640);
+        return {
+          images: {
+            full,
+            mini: await mini.toBuffer(),
+          },
+          metadata,
+          supported: false,
+        };
       }
-      return {
-        images: { full, mini },
-        metadata,
-        supported: false,
-      };
     }
 
-    let attributesData;
-    try {
-      attributesData = buildAttributes(
-        aurorian.attributes,
-        this.seqToColorData as any as { [key: string]: string },
-        this.hairlessVersion,
-        this.whiteshirtVersion,
-        this.baseMouthVersion,
-        customBgFilePath
-      );
-    } catch (e) {
-      const error = {
-        sequence,
-        error: e,
-      };
-      // fs.writeFileSync(
-      //   `output/${sequence}-err.json`,
-      //   JSON.stringify(error, null, 2)
-      // );
-      return {
-        images: {
-          full: null as any,
-          mini: null as any,
-        },
-        metadata: this.generateMetadataForUnsupported(aurorian, sequence),
-        supported: true,
-      };
-    }
+    const attributesData = buildAttributes(
+      aurorian.attributes,
+      this.seqToColorData as any as { [key: string]: string },
+      this.hairlessVersion,
+      this.whiteshirtVersion,
+      this.baseMouthVersion,
+      customBgFilePath
+    );
+
     const newAttributes = attributesData.flatMap((a) => a.attributes.flat());
     this.setMissingAttributes(newAttributes);
-    let attributes;
-    try {
-      attributes = this.mergeAttributes(
-        aurorian.attributes,
-        newAttributes,
-        sequence
-      );
-    } catch (e) {
-      return {
-        images: {
-          full: null as any,
-          mini: null as any,
-        },
-        metadata: this.generateMetadataForUnsupported(aurorian, sequence),
-        supported: true,
-      };
-    }
-
-    if (attributes.length !== 19) {
-      (attributes as any).push({
-        error: `Attributes length ${attributes.length} instead of 19 [seq ${sequence}]`,
-      });
-      // fs.writeFileSync(
-      //   `output/${sequence}-err.json`,
-      //   JSON.stringify(attributes, null, 2)
-      // );
-      return {
-        images: {
-          full: null as any,
-          mini: null as any,
-        },
-        metadata: this.generateMetadataForUnsupported(aurorian, sequence),
-        supported: true,
-      };
-    }
+    const attributes = this.mergeAttributes(
+      aurorian.attributes,
+      newAttributes,
+      sequence
+    );
 
     const metadata = this.generateMetadata(aurorian.name, attributes, sequence);
-    // return {
-    //   images: {
-    //     full: null as any,
-    //     mini: null as any,
-    //   },
-    //   metadata,
-    //   supported: true,
-    // };
+
     const sharpInputs = [
       ...buildSharpInputs(this.imagesDirPath, attributesData),
     ];
@@ -420,12 +406,9 @@ export class AurorianV2Generator {
     }
 
     const mini = await sharp(full).resize(512, 640);
-    // const mini = await sharp(full).resize(256, 320);
     return {
       images: {
         full,
-        // full: null,
-        // mini: null as any,
         mini: await mini.toBuffer(),
       },
       metadata,

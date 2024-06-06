@@ -1,5 +1,10 @@
 import path from "path";
-import { log } from "../scripts/core-airdrop/utils";
+import {
+  AurorianData,
+  AurorianSkin,
+  AurorianType,
+  FULL_OUTFIT_SEQUENCES,
+} from "./index";
 
 export const seqToColorName = {
   0: "Black",
@@ -858,12 +863,12 @@ const oldNameToNewName = {
   "Shoulder Straps": "Cartographer",
   "Hawaii Shirt": "Hatamoto",
   "Jean Jacket": "Trader",
-  "Pink Stripes'": "Collector",
+  "Pink Stripes": "Collector",
   "Leather Jacket": "Commander",
   "Puffy Jacket": "Rider",
   Polo: "Noble",
   Jacket: "Explorer",
-  "Black Hoodie'": "Cultist",
+  "Black Hoodie": "Cultist",
   "Black T-Shirt": "Squire",
   "Classy Outfit": "Lord",
   Overalls: "Blacksmith",
@@ -1400,6 +1405,43 @@ export function buildAttributes(
     .filter((a) => a !== COMMANDS.SKIP) as ConvertedAttribute[];
 
   return newAttributes;
+}
+
+export function generateHandMadeAurorian(
+  attributes: Attribute[],
+  sequence: number,
+  imagesDirPath: string
+): { bgPath: string; aurorianPath: string } | null {
+  let bg, aurorianType, aurorianSkin;
+  for (let i = 0; i < attributes.length; i++) {
+    const attr = attributes[i];
+    if (attr.trait_type === "Type") {
+      aurorianType = attr.value;
+    } else if (attr.trait_type === "Skin") {
+      aurorianSkin = attr.value;
+    } else if (attr.trait_type === "Background") {
+      bg = attr.value;
+    }
+  }
+
+  let bgPath, aurorianPath;
+  if (FULL_OUTFIT_SEQUENCES.includes(sequence)) {
+    aurorianPath = path.join(
+      imagesDirPath,
+      "1-1",
+      `Aurorian_#${sequence - 1}_NoBG.png`
+    );
+    bgPath = path.join(imagesDirPath, `bg_${sequence - 1}.png`);
+  } else if (aurorianSkin === AurorianSkin.GOLDEN_SKELETON) {
+    aurorianPath = path.join(imagesDirPath, "1-1", `Aurorian_#${sequence}.png`);
+    bgPath = path.join(imagesDirPath, "bg_gold_skeleton_base.png");
+  } else if (aurorianSkin === AurorianSkin.SKELETON) {
+    aurorianPath = path.join(imagesDirPath, "1-1", `Aurorian_#${sequence}.png`);
+    bgPath = path.join(imagesDirPath, attributeToNewFilenameMap[bg] + ".png");
+  } else {
+    throw new Error("Unable to generate Aurorian by generateHandMadeAurorian.");
+  }
+  return { bgPath, aurorianPath };
 }
 
 export function buildSharpInputs(
