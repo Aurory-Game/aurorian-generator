@@ -1,6 +1,6 @@
 {
   "name": "@aurory/aurorian-generator",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "license": "MIT",
@@ -17,9 +17,16 @@
     "sharp": "^0.33.4"
   },
   "devDependencies": {
-    "@solana/web3.js": "^1.91.8",
+    "@metaplex-foundation/mpl-core": "^1.0.0",
+    "@metaplex-foundation/mpl-token-metadata": "^3.2.1",
+    "@metaplex-foundation/umi": "^0.9.1",
+    "@metaplex-foundation/umi-bundle-defaults": "^0.9.1",
+    "@metaplex-foundation/umi-web3js-adapters": "^0.9.1",
+    "@solana/web3.js": "^1.92.0",
+    "@supercharge/promise-pool": "^3.2.0",
     "@types/node": "^20.12.12",
     "bs58": "^5.0.0",
+    "csv-parser": "^3.0.0",
     "dotenv": "^16.4.5",
     "progress": "^2.0.3",
     "ts-node": "^10.9.2",

@@ -9,6 +9,11 @@
 
 node_modules
 input
-output
+output*
+src/scripts/core-airdrop/snapshot
+src/scripts/core-airdrop/deps
+*.zip
+temp-aurorians
 lib
 .env*
+err

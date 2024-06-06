@@ -1,4 +1,5 @@
 import path from "path";
+import { log } from "../scripts/core-airdrop/utils";
 
 export const seqToColorName = {
   0: "Black",
@@ -48,6 +49,10 @@ const attributeToNewFilenameMap = {
   "No Trait_Zombie_Shark Necklace": "Aurorian_Necklace_Bone_Zombie",
   "No Trait_Zombie_Flower Necklace": "Aurorian_Necklace_Flower_Zombie",
   "No Trait_Zombie_Solana Necklace": "Aurorian_Necklace_Golden_Zombie",
+  "No Trait_Skeleton_Aurory Necklace": "Aurorian_Necklace_Coral_Skeleton",
+  "No Trait_Skeleton_Shark Necklace": "Aurorian_Necklace_Bone_Skeleton",
+  "No Trait_Skeleton_Flower Necklace": "Aurorian_Necklace_Flower_Skeleton",
+  "No Trait_Skeleton_Solana Necklace": "Aurorian_Necklace_Gold_Skeleton",
   "Black Hoodie": "Aurorian_Cloth_Houdi_Black",
   "Black Hoodie_Aurory Necklace": "Aurorian_Necklace_Coral_Hoodie",
   "Black Hoodie_Aurory Necklace_Zombie":
@@ -367,7 +372,7 @@ const attributeToNewFilenameMap = {
   "Aave Glasses_1": "Aurorian_Head_Latino_Glasses-Golden",
   "Aave Glasses_0": "Aurorian_Head_Black_Glasses-Golden",
   "Aave Glasses_Zombie": "Aurorian_Head_Zombie_Glasses-Golden",
-  "Aave Glasses_Skeleton": "Aurorian_Head_Skeleton_Golden",
+  "Aave Glasses_Skeleton": "Aurorian_Head_Skeleton_Glasses-Golden",
   "Aave Glasses_Golden Blob": "Aurorian_Head_BlobGold_Glasses_Golden",
   "Aave Glasses_Solana Blob": "Aurorian_Head_Blob_Glasses-Golden",
   "Viper Shades_2": "Aurorian_Head_White_Glasses-Sol",
@@ -534,6 +539,7 @@ const attributeToNewFilenameMap = {
     "Aurorian_Hat_Sam_Clementine-CouetteHairs_Blob",
   "Sam Hat_Combed Haircut": "Aurorian_Hat_Sam_Combed",
   "Sam Hat_Combed Haircut_Blob": "Aurorian_Hat_Sam_Combed_Blob",
+  "Sam Hat_Combed Haircut_Gold": "Aurorian_Hat_Sam_Combed_BlobGold",
   "Sam Hat_Curly": "Aurorian_Hat_Sam_Curved-CouetteHairs",
   "Sam Hat_Playmobil": "Aurorian_Hat_Sam_Playmobile",
   "Dinobit Hat_No Trait": "Aurorian_Hat_Bitebit_Shaved",
@@ -586,6 +592,7 @@ const attributeToNewFilenameMap = {
   "Phantom Cap_No Trait_Gold": "Aurorian_Hat_Backpack_Shaved_BlobGold",
   "Phantom Cap_No Trait_Blob": "Aurorian_Hat_Backpack_Shaved_Blob",
   "Phantom Cap_No Trait_Zombie": "Aurorian_Hat_Backpack_Shaved_Zombie",
+  "Phantom Cap_No Trait_Skeleton": "Aurorian_Hat_Backpack_Shaved_Skeleton",
   "Phantom Cap_Clementine Hair": "Aurorian_Hat_Backpack_Clementine",
   "Phantom Cap_Clementine Hair_Blob": "Aurorian_Hat_Backpack_Clementine_Blob",
   "Phantom Cap_Clementine Hair_Zombie":
@@ -655,6 +662,7 @@ const attributeToNewFilenameMap = {
   "Witch Hat_Clementine Hair": "Aurorian_Hat_Magic_ClementineHairs",
   "Witch Hat_Clementine Hair_Zombie":
     "Aurorian_Hat_Magic_ClementineHairs_Zombie",
+  "Witch Hat_Clementine Hair_Blob": "Aurorian_Hat_Magic_ClementineHairs_Blob",
   "Witch Hat_Combed Haircut": "Aurorian_Hat_Magic_CombedHairs",
   "Witch Hat_Combed Haircut_Blob": "Aurorian_Hat_Magic_CombedHairs_Blob",
   "Witch Hat_Combed Haircut_Zombie": "Aurorian_Hat_Magic_CombedHairs_Zombie",
@@ -666,15 +674,15 @@ const attributeToNewFilenameMap = {
   "Big Crown_No Trait": "Aurorian_Hat_CrownBig_Shaved",
   "Big Crown_No Trait_Blob": "Aurorian_Hat_CrownBig_Shaved_Blob",
   "Big Crown_No Trait_Zombie": "Aurorian_Hat_CrownBig_Shaved_Zombie",
-  "Big Crown_Clementine Hair": "Aurorian_Hat_Crown_Clementine",
+  "Big Crown_Clementine Hair": "Aurorian_Hat_CrownBig_Clementine",
   "Big Crown_Clementine Hair_Zombie": "Aurorian_Hat_CrownBig_Clementine_Zombie",
   "Big Crown_Clementine Hair_Blob": "Aurorian_Hat_CrownBig_Clementine_Blob",
-  "Big Crown_Combed Haircut": "Aurorian_Hat_Crown_Combed",
+  "Big Crown_Combed Haircut": "Aurorian_Hat_CrownBig_Combed",
   "Big Crown_Combed Haircut_Blob": "Aurorian_Hat_CrownBig_Combed_Blob",
   "Big Crown_Combed Haircut_Zombie": "Aurorian_Hat_CrownBig_Combed_Zombie",
-  "Big Crown_Curly": "Aurorian_Hat_Crown_Curved",
+  "Big Crown_Curly": "Aurorian_Hat_CrownBig_Curved",
   "Big Crown_Curly_Zombie": "Aurorian_Hat_CrownBig_Curved_Zombie",
-  "Big Crown_Playmobil": "Aurorian_Hat_Crown_Playmobile",
+  "Big Crown_Playmobil": "Aurorian_Hat_CrownBig_Playmobile",
   "Big Crown_Playmobil_Blob": "Aurorian_Hat_CrownBig_Playmobile_Blob",
   "Big Crown_Playmobil_Zombie": "Aurorian_Hat_CrownBig_Playmobile_Zombie",
   "Cute headphone_No Trait": "Aurorian_Hat_Dragoon_CatHeadphone_ShavedHairs",
@@ -692,6 +700,8 @@ const attributeToNewFilenameMap = {
     "Aurorian_Hat_Dragoon_CatHeadphone_CombedHairs",
   "Cute headphone_Combed Haircut_Blob":
     "Aurorian_Hat_Dragoon_CatHeadphone_CombedHairs_Blob",
+  "Cute headphone_Combed Haircut_Zombie":
+    "Aurorian_Hat_Dragoon_CatHeadphone_CombedHairs_Zombie",
   "Cute headphone_Curly": "Aurorian_Hat_Dragoon_CatHeadphone_CurvedHairs",
   "Cute headphone_Curly_Blob":
     "Aurorian_Hat_Dragoon_CatHeadphone_CurvedHairs_Blob",
@@ -728,6 +738,7 @@ const attributeToNewFilenameMap = {
   Moogle_Playmobil: "Aurorian_Hat_Mog_PlaymobileHairs",
   "Luffy Hat_No Trait": "Aurorian_Hat_Luffy_ShavedHairs",
   "Luffy Hat_No Trait_Blob": "Aurorian_Hat_Luffy_ShavedHairs_Blob",
+  "Luffy Hat_No Trait_Skeleton": "Aurorian_Hat_Luffy_ShavedHairs_Skeleton",
   "Luffy Hat_Clementine Hair": "Aurorian_Hat_Luffy_ClementineHairs",
   "Luffy Hat_Combed Haircut": "Aurorian_Hat_Luffy_CombedHairs",
   "Luffy Hat_Curly": "Aurorian_Hat_Luffy_CurvedHairs",
@@ -736,6 +747,7 @@ const attributeToNewFilenameMap = {
   "Plague Hat_No Trait": "Aurorian_Hat_Riche_ShavedHairs",
   "Plague Hat_No Trait_Blob": "Aurorian_Hat_Riche_ShavedHairs_Blob",
   "Plague Hat_No Trait_Zombie": "Aurorian_Hat_Riche_ShavedHairs_Zombie",
+  "Plague Hat_No Trait_Skeleton": "Aurorian_Hat_Riche_ShavedHairs_Skeleton",
   "Plague Hat_Clementine Hair": "Aurorian_Hat_Riche_ClementineHairs",
   "Plague Hat_Clementine Hair_Blob": "Aurorian_Hat_Riche_ClementineHairs_Blob",
   "Plague Hat_Combed Haircut": "Aurorian_Hat_Riche_CombedHairs",
@@ -758,7 +770,8 @@ const attributeToNewFilenameMap = {
   "Raccoon Hat_No Trait": "Aurorian_Hat_Racoon_Shaved",
   "Raccoon Hat_No Trait_Blob": "Aurorian_Hat_Racoon_Shaved_Blob",
   "Raccoon Hat_No Trait_Zombie": "Aurorian_Hat_Racoon_Shaved_Zombie",
-  "Raccoon Hat_No Trait_Gold": "Aurorian_Hat_Racoon_Shaved_Gold",
+  "Raccoon Hat_No Trait_Skeleton": "Aurorian_Hat_Racoon_Shaved_Skeleton",
+  "Raccoon Hat_No Trait_Gold": "Aurorian_Hat_Racoon_Shaved_BlobGold",
   "Raccoon Hat_Clementine Hair": "Aurorian_Hat_Racoon_Clementine",
   "Raccoon Hat_Clementine Hair_Gold": "Aurorian_Hat_Racoon_Clementine_BlobGold",
   "Raccoon Hat_Clementine Hair_Blob": "Aurorian_Hat_Racoon_Clementine_Blob",
@@ -773,6 +786,7 @@ const attributeToNewFilenameMap = {
   "Feather Hat_No Trait": "Aurorian_Hat_Featherr_Shaved",
   "Feather Hat_No Trait_Blob": "Aurorian_Hat_Featherr_Shaved_Blob",
   "Feather Hat_No Trait_Zombie": "Aurorian_Hat_Featherr_Shaved_Zombie",
+  "Feather Hat_No Trait_Skeleton": "Aurorian_Hat_Featherr_Shaved_Skeleton",
   "Feather Hat_Clementine Hair": "Aurorian_Hat_Featherr_Clementine",
   "Feather Hat_Clementine Hair_Blob": "Aurorian_Hat_Featherr_Clementine_Blob",
   "Feather Hat_Clementine Hair_Zombie":
@@ -793,7 +807,7 @@ const attributeToNewFilenameMap = {
   "Dracurve Hat_Curly": "Aurorian_Hat_Dragoon_CurvedHairs",
   "Dracurve Hat_Playmobil": "Aurorian_Hat_Dragoon_PlaymobileHairs",
   "Dracurve Hat_Playmobil_Blob": "Aurorian_Hat_Dragoon_PlaymobileHairs_Blob",
-  "Dipking Hat_No Trait": "Aurorian_Hat_Dipking_ShavedHairs",
+  "Dipking Hat_No Trait": "Aurorian_Hat_Dipking_NoHairs",
   "Dipking Hat_No Trait_Gold": "Aurorian_Hat_Dipking_ShavedHairs_BlobGold",
   "Dipking Hat_No Trait_Blob": "Aurorian_Hat_Dipking_ShavedHairs_Blob",
   "Dipking Hat_Clementine Hair": "Aurorian_Hat_Dipking_ClementineHairs",
@@ -826,30 +840,30 @@ const attributeToNewFilenameMap = {
 
 const oldNameToNewName = {
   // Cloth
-  "Open Leather Jacket": "Commander (open)",
-  Scarf: "Collector (open)",
-  "Open Jacket": "Trader (open)",
+  "Open Leather Jacket": "Open Commander",
+  Scarf: "Open Collector",
+  "Open Jacket": "Open Trader",
   "Zzoo Outfit": "Zzoo Knight",
   "Dracurve Outfit": "Dracurve Knight",
   "Dipking Outfit": "Dipking Knight",
-  "Sam Outfit": "Tokane Knight",
+  "Sam Outfit": "Legend of Tokane",
   "Axobubble Outfit": "Axobubble Knight",
   "Helios Outfit": "Helios Knight",
   "Beetlefox Outfit": "Beetlefox Knight",
   "Dinobit Outfit": "Dinobit Knight",
   "Bitebit Outfit": "Bitebit Knight",
   "Unika Outfit": "Unika Knight",
-  "Classic Jacket": "Extractor, Miner",
+  "Classic Jacket": "Miner",
   "Green Sweater": "Adventurer",
   "Shoulder Straps": "Cartographer",
-  "Hawaii Shirt": "Cartographer",
+  "Hawaii Shirt": "Hatamoto",
   "Jean Jacket": "Trader",
-  "Pink Stripes": "Collector",
+  "Pink Stripes'": "Collector",
   "Leather Jacket": "Commander",
-  "Puffy Jacket": "stableman, Rider?",
+  "Puffy Jacket": "Rider",
   Polo: "Noble",
   Jacket: "Explorer",
-  "Black Hoodie": "Cultist",
+  "Black Hoodie'": "Cultist",
   "Black T-Shirt": "Squire",
   "Classy Outfit": "Lord",
   Overalls: "Blacksmith",
@@ -866,76 +880,76 @@ const oldNameToNewName = {
   "Dracurve Hat": "Dracurve Hat",
   "Zzoo Hat": "Zzoo Hat",
   "Axoubble Hat": "Axoubble Hat",
-  "Crazy Horse Hat": "Eomer's Helmet",
+  "Crazy Horse Hat": "Eomer Helmet",
   "Bitebit Hat": "Bitebit Hat",
   "Beetlefox Hat": "Beetlefox Hat",
-  "Jotaro Cap": "It's-a-me Cap, Invincibility Cap?",
-  "Dragon Hat": "Scholar Hat",
+  "Jotaro Cap": "It's-a-me Cap",
+  "Dragon Hat": "Emperor Hat",
   Moogle: "Moogle Beanie",
-  "Luffy Hat": "Straw Hat",
-  "Sam Hat": "Cosplay Wig",
+  "Luffy Hat": "Kaizoku Hat",
+  "Sam Hat": "Cloud Wig",
   "Witch Hat": "Sorting Hat",
-  "Plague Hat'": "Top Hat",
-  "Doughnut Hat'": "Jester Hat",
+  "Plague Hat": "McDuck Hat",
+  "Doughnut Hat": "Jester Hat",
   "Feather Hat": "Cavalier Hat",
-  "Twitter Hat": "Feather Hat",
+  "Twitter Hat": "Elon Hat",
   "Gavroche Hat": "Gavroche Cap",
   "Phantom Cap": "Backpack Cap",
   "Raccoon Hat": "Raccoin Hat",
-  "Beret Hat": "Menestrel Hat",
-  "Cute headphone": "Gamer Headphone",
+  "Beret Hat": "Beret",
+  "Cute headphone": "Cat Headphones",
   Crown: "Jeweled Crown",
   "Big Crown": "Crown",
   // hair
   "Long Blob Hair": "Long Blob Hair",
   "White Hair": "White Hair",
-  "Brown Dreadlocks": "Attached Dreadlocks",
+  "Brown Dreadlocks": "Brown Braids",
   "Purple Dreadlocks": "Short Dreadlocks",
   "Blob Hair": "Blob Hair",
   "Clementine Hair": "Blue Hair",
   "Zero Two Hair": "Zero Two Hair",
   "Blond Hair Attached": "Blond Hair",
-  Pigtails: "Bunches",
+  Pigtails: "Space Buns",
   Shaved: "Shaved",
-  Undercut: "Purple hair",
+  Undercut: "Purple Hair",
   "Green Hair": "Long Hair",
-  Curly: "Curved Hair",
+  Curly: "Curly Hair",
   Playmobil: "Short Hair",
   "Combed Haircut": "Combed Hair",
   // mouth
   Angry: "Angry",
   "Barely Angry": "Open",
-  "Steampunk Mask": "Grillz",
-  "Paint Mask": "Smoke",
+  "Steampunk Mask": "Greed Grill",
+  "Paint Mask": "Onizuka Smoke",
   "Bane Mask": "Scars",
-  Lollipop: "Bubble Pipe",
+  Lollipop: "Gamabunta Pipe",
   "Oni Mask": "Oni Tattoo",
   "Big Smile": "Smile",
   Grin: "Grin",
-  "Plague Mask": "Fangs",
-  "Zipper Mask": "Whiskers",
-  "Cat Mask": "Tongue out",
+  "Plague Mask": "Cursed",
+  "Zipper Mask": "Kurama Streaks",
+  "Cat Mask": "Tongue Out",
   "Base Mouth": "Base Mouth",
   "Base Mouth_1": "Neutral",
   "Base Mouth_2": "Neutral 2",
   // eyes
-  "Cat Eyes Black": "Cat Brown Pupil",
-  "Aurory Glasses": "Aurory Eyes",
-  "Cat Black Pupil": "Cat Brown Pupil",
-  "Spring Glasses": "Heterochromia Eyes",
-  "Cat Green Pupil": "Cat Green Pupil",
+  "Cat Eyes Black": "Brown Cat Eyes",
+  "Aurory Glasses": "Tokane Eyes",
+  "Cat Black Pupil": "Brown Cat Eyes",
+  "Spring Glasses": "Yuna Eyes",
+  "Cat Green Pupil": "Green Cat Eyes",
   "Steampunk Eyes": "Steampunk Eyes",
-  "Green Eyes": "Cat Yellow Pupil",
+  "Green Eyes": "Yellow Cat Eyes",
   "Blue Skull Glasses": "Skull Eyes",
   Green: "Yellow Eyes",
   "Aave Glasses": "Golden Eyes",
   "Black Eyes": "Blue Eyes",
   "Heart Glasses": "Heart Eyes",
-  "Viper Shades": "Vibrant eyes",
+  "Viper Shades": "Viper Eyes",
   "Red Eyes": "Red Eyes",
-  "Base Eyes": "Base Eyes",
+  "Base Eyes": "Brown Eyes",
 
-  "Solana Necklace": "Gold Necklace",
+  "Solana Necklace": "Golden Necklace",
   "Flower Necklace": "Flower Necklace",
   "Shark Necklace": "Bone Necklace",
   "Aurory Necklace": "Coral Necklace",
@@ -945,14 +959,16 @@ const oldNameToNewName = {
   Skeleton: "Skeleton",
   "Golden Blob": "Golden Blob",
   Zombie: "Zombie",
-  "Solana Blob": "Solana Blob",
+  "Solana Blob": "Blob",
   Human: "Human",
 
-  Blue: "Blue",
-  Lagoon: "Lagoon",
-  "Gradient Blue": "Gradient Blue",
-  "Soft Blue": "Soft Blue",
-  "Base Background": "Base Background",
+  Blue: "Lagoon",
+  Lagoon: "Ocean",
+  "Gradient Blue": "Dusk",
+  "Soft Blue": "Dawn",
+  "Base Background": "Violet",
+  "Special Blue": "Special Blue",
+  "Special Orange": "Special Orange",
 };
 
 enum SkinColor {
@@ -1006,7 +1022,7 @@ export function mouthFilenameConverter(
   } else {
     attributes.push({
       trait_type: "Mouth",
-      value: oldNameToNewName[value],
+      value: value === "No Trait" ? value : oldNameToNewName[value],
     });
     if (skin === "Human") {
       key = `${value}_${color}`;
@@ -1042,6 +1058,7 @@ export function hairFilenameConverter(
         "Solana Blob": "Blob",
         "Golden Blob": "Gold",
         Zombie: "Zombie",
+        Skeleton: "Skeleton",
       };
       key = `${value}_${skinNameToFileSuffix[skin]}`;
     }
@@ -1050,13 +1067,15 @@ export function hairFilenameConverter(
 }
 
 export function necklaceFilenameConverter(
-  necklace: string,
+  necklaceRaw: string,
   skin: string,
-  cloth: string,
+  clothRaw: string,
   color: string,
   sequence: number,
   whiteshirtVersion: { version: number }[]
 ): KeyAttribute {
+  const necklace = necklaceRaw.trim();
+  const cloth = clothRaw.trim();
   let key: string;
   let attributes: Attribute[] = [
     {
@@ -1141,6 +1160,7 @@ export function hatFilenameConverter(
       "Solana Blob": "Blob",
       "Golden Blob": "Gold",
       Zombie: "Zombie",
+      Skeleton: "Skeleton",
     };
     key += `_${skinNameToFileSuffix[skin]}`;
   }
@@ -1159,12 +1179,29 @@ export function eyesFilenameConverter(
   value: string,
   skin: string,
   color: string
-): string {
+): KeyAttribute {
+  const attributes: Attribute[] = [];
+  let key;
   if (skin === "Human") {
-    return `${value}_${color}`;
+    key = `${value}_${color}`;
+    attributes.push({
+      trait_type: "Eyes",
+      value: oldNameToNewName[value],
+    });
+    // } else if (value === "No Trait" && skin !== "Skeleton") {
+    //   key = "No Trait";
+    //   attributes.push({
+    //     trait_type: "Eyes",
+    //     value: "No Trait",
+    //   });
   } else {
-    return `${value}_${skin}`;
+    key = `${value}_${skin}`;
+    attributes.push({
+      trait_type: "Eyes",
+      value: value === "No Trait" ? "No Trait" : oldNameToNewName[value],
+    });
   }
+  return { key, attributes };
 }
 
 interface ConvertedAttribute {
@@ -1222,7 +1259,6 @@ export function attributeConverter(
       whiteshirtVersion
     );
     key = keyWithAttributeKeys.key;
-    console.log(key);
     attributes = keyWithAttributeKeys.attributes;
   } else if (trait_type === "Hat") {
     const hair = oldAttributes.find((a) => a.trait_type === "Hair")?.value;
@@ -1234,11 +1270,9 @@ export function attributeConverter(
     key = keyWithAttributeKeys.key;
     attributes = keyWithAttributeKeys.attributes;
   } else if (trait_type === "Eyes") {
-    key = eyesFilenameConverter(value, skin, color);
-    attributes.push({
-      trait_type: "Eyes",
-      value: oldNameToNewName[value],
-    });
+    const keyWithAttributeKeys = eyesFilenameConverter(value, skin, color);
+    key = keyWithAttributeKeys.key;
+    attributes = keyWithAttributeKeys.attributes;
   } else if (trait_type === "Cloth") {
     if (value === "No Trait" || value === "Base Cloth") {
       if (skin !== "Human") {
@@ -1272,6 +1306,7 @@ export function attributeConverter(
     return COMMANDS.SKIP;
   }
   if (!attributeToNewFilenameMap[key]) {
+    debugger;
     throw new Error(`No mapping found for ${key} (${trait_type})`);
   }
   const filePath = attributeToNewFilenameMap[key] + ".png";
@@ -1319,7 +1354,8 @@ export function buildAttributes(
     .filter(({ trait_type, value }) => {
       const trait_types = ["Type", "Clothing", "generation", " sequence"];
       const excludeBg = trait_type === "Background" && customBgFilePath;
-      const excludeMouth = skin === "Skeleton";
+      const excludeMouth =
+        trait_type === "Mouth" && skin === "Skeleton" && value === "No Trait";
       const exludeHair =
         trait_type === "Hair" &&
         (hat !== "No Trait" || (skin !== "Human" && hair === "No Trait"));
@@ -1335,6 +1371,8 @@ export function buildAttributes(
         necklace !== "No Trait";
       const excludeCloth = excludeCloth_1 || excludeCloth_2;
       const excludeHat = trait_type === "Hat" && value === "No Trait";
+      const excludeEyes =
+        trait_type === "Eyes" && value === "No Trait" && skin === "Human";
 
       return (
         !excludeBg &&
@@ -1343,7 +1381,8 @@ export function buildAttributes(
         !excludeCloth &&
         !excludeHat &&
         !trait_types.includes(trait_type) &&
-        !excludeMouth
+        !excludeMouth &&
+        !excludeEyes
       );
     })
     .map(({ trait_type, value }) =>

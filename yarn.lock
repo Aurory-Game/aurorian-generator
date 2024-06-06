@@ -9,9 +9,16 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@aurory/aurorian-generator@workspace:."
   dependencies:
-    "@solana/web3.js": "npm:^1.91.8"
+    "@metaplex-foundation/mpl-core": "npm:^1.0.0"
+    "@metaplex-foundation/mpl-token-metadata": "npm:^3.2.1"
+    "@metaplex-foundation/umi": "npm:^0.9.1"
+    "@metaplex-foundation/umi-bundle-defaults": "npm:^0.9.1"
+    "@metaplex-foundation/umi-web3js-adapters": "npm:^0.9.1"
+    "@solana/web3.js": "npm:^1.92.0"
+    "@supercharge/promise-pool": "npm:^3.2.0"
     "@types/node": "npm:^20.12.12"
     bs58: "npm:^5.0.0"
+    csv-parser: "npm:^3.0.0"
     dotenv: "npm:^16.4.5"
     progress: "npm:^2.0.3"
     sharp: "npm:^0.33.4"
@@ -21,7 +28,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@babel/runtime@npm:^7.24.5":
+"@babel/runtime@npm:^7.24.6":
   version: 7.24.6
   resolution: "@babel/runtime@npm:7.24.6"
   dependencies:
@@ -261,7 +268,217 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@noble/curves@npm:^1.4.0":
+"@metaplex-foundation/mpl-core@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "@metaplex-foundation/mpl-core@npm:1.0.0"
+  peerDependencies:
+    "@metaplex-foundation/umi": ">=0.8.2 < 1"
+    "@noble/hashes": ^1.3.1
+  checksum: 10c0/81a34894affa6bec6324845d24ce7e64dfc9d722d98457c6a3fb3744033b9b979f67dd616aae1ddc0782948b195e87c8f3845428ece661033581cd1a6ae3edcf
+  languageName: node
+  linkType: hard
+
+"@metaplex-foundation/mpl-token-metadata@npm:^3.2.1":
+  version: 3.2.1
+  resolution: "@metaplex-foundation/mpl-token-metadata@npm:3.2.1"
+  dependencies:
+    "@metaplex-foundation/mpl-toolbox": "npm:^0.9.4"
+  peerDependencies:
+    "@metaplex-foundation/umi": ">= 0.8.2 < 1"
+  checksum: 10c0/6c64e99b12c43362dfad0f809b1754e0bd84680a51a007cf3439a8c5954c3ffb3d6e7130bdf5bcb0304985a8e60cf66cfd9e897ffb8a4f9953eb522b27fac473
+  languageName: node
+  linkType: hard
+
+"@metaplex-foundation/mpl-toolbox@npm:^0.9.4":
+  version: 0.9.4
+  resolution: "@metaplex-foundation/mpl-toolbox@npm:0.9.4"
+  peerDependencies:
+    "@metaplex-foundation/umi": ">= 0.8.2 < 1"
+  checksum: 10c0/5036b0d941ada428cc199a3d8472bfc18473dd04cc9226c98971aa133e7d1cd619f4c5b25207f1b4470a1f0c5c108f2ef69404c808a5ee3bf4390fa88c47227d
+  languageName: node
+  linkType: hard
+
+"@metaplex-foundation/umi-bundle-defaults@npm:^0.9.1":
+  version: 0.9.1
+  resolution: "@metaplex-foundation/umi-bundle-defaults@npm:0.9.1"
+  dependencies:
+    "@metaplex-foundation/umi-downloader-http": "npm:^0.9.1"
+    "@metaplex-foundation/umi-eddsa-web3js": "npm:^0.9.1"
+    "@metaplex-foundation/umi-http-fetch": "npm:^0.9.1"
+    "@metaplex-foundation/umi-program-repository": "npm:^0.9.1"
+    "@metaplex-foundation/umi-rpc-chunk-get-accounts": "npm:^0.9.1"
+    "@metaplex-foundation/umi-rpc-web3js": "npm:^0.9.1"
+    "@metaplex-foundation/umi-serializer-data-view": "npm:^0.9.1"
+    "@metaplex-foundation/umi-transaction-factory-web3js": "npm:^0.9.1"
+  peerDependencies:
+    "@metaplex-foundation/umi": ^0.9.1
+    "@solana/web3.js": ^1.72.0
+  checksum: 10c0/f78bc21ab1be4a14f51103d57789ffe7705562cb0e4f321f14767d81b1ed0ba8e349ec2c1bbb8d9c6c037e2621cd0aad664e96529717a7d04cf6ed2988514452
+  languageName: node
+  linkType: hard
+
+"@metaplex-foundation/umi-downloader-http@npm:^0.9.1":
+  version: 0.9.1
+  resolution: "@metaplex-foundation/umi-downloader-http@npm:0.9.1"
+  peerDependencies:
+    "@metaplex-foundation/umi": ^0.9.1
+  checksum: 10c0/829add44b471dfe82e6b6a82d1b65a3a1a5f78f6de56063ae299409a50e6b74849b67894e7451fee52893c342185e96f34af46d8dc6f4bcea42506c0dc2c10fc
+  languageName: node
+  linkType: hard
+
+"@metaplex-foundation/umi-eddsa-web3js@npm:^0.9.1":
+  version: 0.9.1
+  resolution: "@metaplex-foundation/umi-eddsa-web3js@npm:0.9.1"
+  dependencies:
+    "@metaplex-foundation/umi-web3js-adapters": "npm:^0.9.1"
+    "@noble/curves": "npm:^1.0.0"
+  peerDependencies:
+    "@metaplex-foundation/umi": ^0.9.1
+    "@solana/web3.js": ^1.72.0
+  checksum: 10c0/329db2126117bbec3ec3f737c8bd5c9b1106156d62104ac9d4d4a9d0eaa8ec2777cbd6c6e8e4410c63b3823adc129430eaa7fb31a06421d01772c827095f7d6d
+  languageName: node
+  linkType: hard
+
+"@metaplex-foundation/umi-http-fetch@npm:^0.9.1":
+  version: 0.9.1
+  resolution: "@metaplex-foundation/umi-http-fetch@npm:0.9.1"
+  dependencies:
+    node-fetch: "npm:^2.6.7"
+  peerDependencies:
+    "@metaplex-foundation/umi": ^0.9.1
+  checksum: 10c0/82a4a6594f4a7b7b1b76890ed84549ca17f56878c11bddb680a1c21cdc25785fb9eee3b7971a22f39c0c2b604c34de207208f4a4dfd200562f893b6570a2c977
+  languageName: node
+  linkType: hard
+
+"@metaplex-foundation/umi-options@npm:^0.8.9":
+  version: 0.8.9
+  resolution: "@metaplex-foundation/umi-options@npm:0.8.9"
+  checksum: 10c0/da0bcec5188ab5638ee4bbdbba22236b69f5e89f33bf279ef9ea584d5e5ed428ab6a7cddcc73d29b8bf1e8ea840d641b509e01b9778b470baded5ab30d18cc3d
+  languageName: node
+  linkType: hard
+
+"@metaplex-foundation/umi-program-repository@npm:^0.9.1":
+  version: 0.9.1
+  resolution: "@metaplex-foundation/umi-program-repository@npm:0.9.1"
+  peerDependencies:
+    "@metaplex-foundation/umi": ^0.9.1
+  checksum: 10c0/2313a8ddb3ad29a9e8443acdc4e135a635371367cf58541173c234aa3347ebbb9fc0851e6c90de81327e2d13c838823bf4c1dd043615285ec574d75f45b4b0d4
+  languageName: node
+  linkType: hard
+
+"@metaplex-foundation/umi-public-keys@npm:^0.8.9":
+  version: 0.8.9
+  resolution: "@metaplex-foundation/umi-public-keys@npm:0.8.9"
+  dependencies:
+    "@metaplex-foundation/umi-serializers-encodings": "npm:^0.8.9"
+  checksum: 10c0/961281b83cb6b60eb7872fb6c818798ee3b81b5457fb5c31c9b96bc73010d77e12d9952659f7d16d0352eb219ac7644d59d1147f27817d8c46722ea6bad23d83
+  languageName: node
+  linkType: hard
+
+"@metaplex-foundation/umi-rpc-chunk-get-accounts@npm:^0.9.1":
+  version: 0.9.1
+  resolution: "@metaplex-foundation/umi-rpc-chunk-get-accounts@npm:0.9.1"
+  peerDependencies:
+    "@metaplex-foundation/umi": ^0.9.1
+  checksum: 10c0/ce9ece532c6b34532c25d9cf92992ca31002dc9bc8d85848d6f8922882acf2b519ff8b96afa0fcc1030d185943377064c8382711afb6cfe12251ba2f23fbc4db
+  languageName: node
+  linkType: hard
+
+"@metaplex-foundation/umi-rpc-web3js@npm:^0.9.1":
+  version: 0.9.1
+  resolution: "@metaplex-foundation/umi-rpc-web3js@npm:0.9.1"
+  dependencies:
+    "@metaplex-foundation/umi-web3js-adapters": "npm:^0.9.1"
+  peerDependencies:
+    "@metaplex-foundation/umi": ^0.9.1
+    "@solana/web3.js": ^1.72.0
+  checksum: 10c0/2249cbb51f41ce49f5dd4f2619c3e45ec19862c2e1c29176b9ed321997c567ce65679b5956187ad200414e195afbba59b84d158dd83b66a9f9761515b8b8393b
+  languageName: node
+  linkType: hard
+
+"@metaplex-foundation/umi-serializer-data-view@npm:^0.9.1":
+  version: 0.9.1
+  resolution: "@metaplex-foundation/umi-serializer-data-view@npm:0.9.1"
+  peerDependencies:
+    "@metaplex-foundation/umi": ^0.9.1
+  checksum: 10c0/bbe60baa37d5ee253bc4faee431d03ee438d3a046391f993640b2b942cf4fb7f936b1b14d7c75cd2fd03362fe02aff5b40fcc7a584fe9b3db30e9dbcb4804bf8
+  languageName: node
+  linkType: hard
+
+"@metaplex-foundation/umi-serializers-core@npm:^0.8.9":
+  version: 0.8.9
+  resolution: "@metaplex-foundation/umi-serializers-core@npm:0.8.9"
+  checksum: 10c0/b169b62b55b6fe7f529c94c8387e9bea25c66a7e9c66bc38027fc89d230f267192f0002a16a663a07dff787d3160424c26d090243edda0aefaaf7f0d874b9adb
+  languageName: node
+  linkType: hard
+
+"@metaplex-foundation/umi-serializers-encodings@npm:^0.8.9":
+  version: 0.8.9
+  resolution: "@metaplex-foundation/umi-serializers-encodings@npm:0.8.9"
+  dependencies:
+    "@metaplex-foundation/umi-serializers-core": "npm:^0.8.9"
+  checksum: 10c0/13bd3a58278284d640b941d26580c86e9bc52390dfc6ee145c3934cd50bf65b42838812f2c4d7adfc1aa93be5c5d3293dcabec2d170ed80406941fa252f0a3d9
+  languageName: node
+  linkType: hard
+
+"@metaplex-foundation/umi-serializers-numbers@npm:^0.8.9":
+  version: 0.8.9
+  resolution: "@metaplex-foundation/umi-serializers-numbers@npm:0.8.9"
+  dependencies:
+    "@metaplex-foundation/umi-serializers-core": "npm:^0.8.9"
+  checksum: 10c0/3dcea7c90ab5c97e631a20d1a73f7fec7f5767200187b79ea6c1ee9763f17ae14cb66f401409662e83f406e7c40b980db62c87506711b95c3be67dd52ab1d2bb
+  languageName: node
+  linkType: hard
+
+"@metaplex-foundation/umi-serializers@npm:^0.9.0":
+  version: 0.9.0
+  resolution: "@metaplex-foundation/umi-serializers@npm:0.9.0"
+  dependencies:
+    "@metaplex-foundation/umi-options": "npm:^0.8.9"
+    "@metaplex-foundation/umi-public-keys": "npm:^0.8.9"
+    "@metaplex-foundation/umi-serializers-core": "npm:^0.8.9"
+    "@metaplex-foundation/umi-serializers-encodings": "npm:^0.8.9"
+    "@metaplex-foundation/umi-serializers-numbers": "npm:^0.8.9"
+  checksum: 10c0/8f8f93e23666aac4cf1ed8fc5eecb726c9865f526535e379ae599c8b295dd78fe4e325d9efdcd545a85c0f3bdff39896d93b33c8087db962cc10a156b03a29d6
+  languageName: node
+  linkType: hard
+
+"@metaplex-foundation/umi-transaction-factory-web3js@npm:^0.9.1":
+  version: 0.9.1
+  resolution: "@metaplex-foundation/umi-transaction-factory-web3js@npm:0.9.1"
+  dependencies:
+    "@metaplex-foundation/umi-web3js-adapters": "npm:^0.9.1"
+  peerDependencies:
+    "@metaplex-foundation/umi": ^0.9.1
+    "@solana/web3.js": ^1.72.0
+  checksum: 10c0/6bd95b66c9173713a4f682160fa1a59232ab11bfbfb0b90c1717ec7ac6c75325129981ecb0901b9d66e9207af70daab6a7afe0bd30882604d8fcd6e7ce08eae5
+  languageName: node
+  linkType: hard
+
+"@metaplex-foundation/umi-web3js-adapters@npm:^0.9.1":
+  version: 0.9.1
+  resolution: "@metaplex-foundation/umi-web3js-adapters@npm:0.9.1"
+  dependencies:
+    buffer: "npm:^6.0.3"
+  peerDependencies:
+    "@metaplex-foundation/umi": ^0.9.1
+    "@solana/web3.js": ^1.72.0
+  checksum: 10c0/5ca9c208d08091f6efe0ae39a5f7a98c72f371a23d86aa0381cc6d3a17958ecec0b97a20c169c2fb8facb73de9b3e95ada834d226342c73372c98fe2e2e3b6f6
+  languageName: node
+  linkType: hard
+
+"@metaplex-foundation/umi@npm:^0.9.1":
+  version: 0.9.1
+  resolution: "@metaplex-foundation/umi@npm:0.9.1"
+  dependencies:
+    "@metaplex-foundation/umi-options": "npm:^0.8.9"
+    "@metaplex-foundation/umi-public-keys": "npm:^0.8.9"
+    "@metaplex-foundation/umi-serializers": "npm:^0.9.0"
+  checksum: 10c0/1b1a638dbbc1bc25c99ff770bfc9621a18e2b08eae8c0f25c406dcea07258bc7305ad8937db54d28c1bf273a4448b97d3a94b5da704a2636836a69c21f27b031
+  languageName: node
+  linkType: hard
+
+"@noble/curves@npm:^1.0.0, @noble/curves@npm:^1.4.0":
   version: 1.4.0
   resolution: "@noble/curves@npm:1.4.0"
   dependencies:
@@ -270,7 +487,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@noble/hashes@npm:1.4.0, @noble/hashes@npm:^1.4.0":
+"@noble/hashes@npm:1.4.0, @noble/hashes@npm:^1.0.0, @noble/hashes@npm:^1.4.0":
   version: 1.4.0
   resolution: "@noble/hashes@npm:1.4.0"
   checksum: 10c0/8c3f005ee72e7b8f9cff756dfae1241485187254e3f743873e22073d63906863df5d4f13d441b7530ea614b7a093f0d889309f28b59850f33b66cb26a779a4a5
@@ -315,11 +532,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@solana/web3.js@npm:^1.91.8":
-  version: 1.91.8
-  resolution: "@solana/web3.js@npm:1.91.8"
+"@solana/web3.js@npm:^1.92.0":
+  version: 1.92.0
+  resolution: "@solana/web3.js@npm:1.92.0"
   dependencies:
-    "@babel/runtime": "npm:^7.24.5"
+    "@babel/runtime": "npm:^7.24.6"
     "@noble/curves": "npm:^1.4.0"
     "@noble/hashes": "npm:^1.4.0"
     "@solana/buffer-layout": "npm:^4.0.1"
@@ -332,9 +549,16 @@ __metadata:
     fast-stable-stringify: "npm:^1.0.0"
     jayson: "npm:^4.1.0"
     node-fetch: "npm:^2.7.0"
-    rpc-websockets: "npm:^7.11.0"
-    superstruct: "npm:^0.14.2"
-  checksum: 10c0/fd5178c25c7074631867006647161ac7f0f0f6b71a9720688510fe5e74bdd10f78df26f70096ee59f87bf97b71c81a89cee0aabe7920fce7691da9e6b8262da1
+    rpc-websockets: "npm:^7.11.1"
+    superstruct: "npm:^1.0.4"
+  checksum: 10c0/eed530ee3fb42e3015efbefe95329434c6593b84dde1230cc9c2d4ff649ae6189b8b590cf1119f6f4b751527b9cdb37bc68fd437e3fd4d013bd651f06b85fee9
+  languageName: node
+  linkType: hard
+
+"@supercharge/promise-pool@npm:^3.2.0":
+  version: 3.2.0
+  resolution: "@supercharge/promise-pool@npm:3.2.0"
+  checksum: 10c0/450e2afb21b41f98184ce23210d394a9d825c7ad7b3d2e23d6181c70c5f651ba7aab6b0e90743f3b47d83f401d829ee8cdf0423f97f000452a65c117e1165bdf
   languageName: node
   linkType: hard
 
@@ -603,7 +827,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"buffer@npm:6.0.3, buffer@npm:~6.0.3":
+"buffer@npm:6.0.3, buffer@npm:^6.0.3, buffer@npm:~6.0.3":
   version: 6.0.3
   resolution: "buffer@npm:6.0.3"
   dependencies:
@@ -715,6 +939,17 @@ __metadata:
     shebang-command: "npm:^2.0.0"
     which: "npm:^2.0.1"
   checksum: 10c0/5738c312387081c98d69c98e105b6327b069197f864a60593245d64c8089c8a0a744e16349281210d56835bb9274130d825a78b2ad6853ca13cfbeffc0c31750
+  languageName: node
+  linkType: hard
+
+"csv-parser@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "csv-parser@npm:3.0.0"
+  dependencies:
+    minimist: "npm:^1.2.0"
+  bin:
+    csv-parser: bin/csv-parser
+  checksum: 10c0/206aef102c10d532a31c7d85e6b1b0e53c7cb8346037eb9f23e0bd7369788960d8f2431639ea9f62e34ddf54d0182dfb345691c11c666802324f25c51dba79bc
   languageName: node
   linkType: hard
 
@@ -1122,6 +1357,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"minimist@npm:^1.2.0":
+  version: 1.2.8
+  resolution: "minimist@npm:1.2.8"
+  checksum: 10c0/19d3fcdca050087b84c2029841a093691a91259a47def2f18222f41e7645a0b7c44ef4b40e88a1e58a40c84d2ef0ee6047c55594d298146d0eb3f6b737c20ce6
+  languageName: node
+  linkType: hard
+
 "minipass-collect@npm:^2.0.1":
   version: 2.0.1
   resolution: "minipass-collect@npm:2.0.1"
@@ -1236,7 +1478,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"node-fetch@npm:^2.7.0":
+"node-fetch@npm:^2.6.7, node-fetch@npm:^2.7.0":
   version: 2.7.0
   resolution: "node-fetch@npm:2.7.0"
   dependencies:
@@ -1363,9 +1605,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rpc-websockets@npm:^7.11.0":
-  version: 7.11.0
-  resolution: "rpc-websockets@npm:7.11.0"
+"rpc-websockets@npm:^7.11.1":
+  version: 7.11.1
+  resolution: "rpc-websockets@npm:7.11.1"
   dependencies:
     bufferutil: "npm:^4.0.1"
     eventemitter3: "npm:^4.0.7"
@@ -1377,7 +1619,7 @@ __metadata:
       optional: true
     utf-8-validate:
       optional: true
-  checksum: 10c0/d643c050e914147a214ee167afb04ee145bfec888f771265cc3ec90acfc1c84cdcb18f802f359f142fdb18ed8e529bd64829ba6523f3db235e5b4bbd52370c21
+  checksum: 10c0/2864cd757a79a34e5f5896fd25651923920229656fea9c107f3526d41c26469532861f93f5e79ed76c192cc03b409e41ed8efdf3ef7a62f82df51c44f42a93d6
   languageName: node
   linkType: hard
 
@@ -1589,10 +1831,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"superstruct@npm:^0.14.2":
-  version: 0.14.2
-  resolution: "superstruct@npm:0.14.2"
-  checksum: 10c0/e5518f6701524fb8cbae504a84dc9c304bf3fe01616230a5eb4e14af9bfc4e3518b94bfe457e57a5d1b99a2b54f82881b4a39e0b266caa6053f84aa294613b94
+"superstruct@npm:^1.0.4":
+  version: 1.0.4
+  resolution: "superstruct@npm:1.0.4"
+  checksum: 10c0/d355f1a96fa314e9df217aa371e8f22854644e7b600b7b0faa36860a8e50f61a60a6f1189ecf166171bf438aa6581bbd0d3adae1a65f03a3c43c62fd843e925c
   languageName: node
   linkType: hard
 

@@ -20,18 +20,20 @@ const {
 } = workerData;
 
 (async () => {
-  await generateAurorianOldvsNew(
-    index,
-    oldAurorians,
-    seqToColorName,
-    newAssetsPath,
-    defaultBackGroundPath,
-    outputFolder,
-    line,
-    backgroundPaths,
-    hairlessVersion,
-    whiteshirtVersion,
-    baseMouthVersion
-  );
+  for (let indexLocal = index; indexLocal < index + 10; indexLocal++) {
+    await generateAurorianOldvsNew(
+      indexLocal,
+      oldAurorians,
+      seqToColorName,
+      newAssetsPath,
+      defaultBackGroundPath,
+      outputFolder,
+      line,
+      backgroundPaths,
+      hairlessVersion,
+      whiteshirtVersion,
+      baseMouthVersion
+    );
+  }
   parentPort.postMessage({ success: true });
 })();

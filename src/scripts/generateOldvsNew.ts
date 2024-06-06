@@ -2,6 +2,7 @@ import sharp from "sharp";
 import fs from "fs";
 import { buildAttributes, buildSharpInputs } from "../sdk/attributes";
 import path from "path";
+import { log } from "./core-airdrop/utils";
 
 declare global {
   interface Array<T> {
@@ -31,7 +32,7 @@ async function textToImage(text, imageWidth) {
   const lines = text.split("\n");
   const imageHeight = lines.length * fontSize * Math.ceil(2 * 1.2); // Adjust height based on the number of lines
   // Creating a blank image
-  const textImage = sharp({
+  const textImage = await sharp({
     create: {
       width: imageWidth,
       height: imageHeight,
@@ -43,7 +44,7 @@ async function textToImage(text, imageWidth) {
     .toBuffer();
 
   // Use a suitable image for rendering text (like an SVG or overlaying with sharp)
-  await fs.promises.writeFile("tempImage.png", await textImage);
+  // await fs.promises.writeFile("tempImage.png", await textImage);
   const svgText = `<svg width="${imageWidth}" height="${imageHeight}">
   <text x="${
     imageWidth / 2
@@ -59,7 +60,7 @@ async function textToImage(text, imageWidth) {
   </text>
 </svg>`;
 
-  const image = await sharp("tempImage.png")
+  const image = await sharp(textImage)
     .composite([{ input: Buffer.from(svgText), top: 0, left: 0 }])
     .png()
     .toBuffer();
@@ -87,7 +88,7 @@ export async function generateAurorianOldvsNew(
   }.png`;
 
   try {
-    let openTry = 3;
+    let openTry = 5;
     let oldAurorianImage;
     while (oldAurorianImage === undefined && openTry > 0) {
       try {
@@ -97,7 +98,7 @@ export async function generateAurorianOldvsNew(
           .toBuffer();
       } catch (e) {
         openTry--;
-        console.log(`Error opening image ${sequence}, retrying.: ${e}`);
+        log(`Error opening image ${sequence}, retrying.: ${e}`);
         if (openTry === 0) {
           throw e;
         }
@@ -130,20 +131,17 @@ export async function generateAurorianOldvsNew(
         left: width,
         top: 0,
       },
-      // {
-      //   input:
-      //     backgroundPaths[Math.floor(Math.random() * backgroundPaths.length)],
-      //   left: width,
-      //   top: 0,
-      // },
       ...buildSharpInputs(newAssetsPath, newAttributes, width),
     ];
-    await sharp(defaultBackGroundPath)
+    const imageFull = await sharp(defaultBackGroundPath)
       .extend({
         left: width,
         bottom: textImageBufferHeight,
       })
       .composite(sharpInputs)
+      .toBuffer();
+    await sharp(imageFull)
+      .resize(480)
       .toFile(path.join(outputFolder, `${sequence - 1}.png`));
   } catch (e: any) {
     const errorJson = {

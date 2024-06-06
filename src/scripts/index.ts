@@ -2,8 +2,8 @@ import fs from "fs";
 import path from "path";
 import sharp from "sharp";
 import { generateAurorianOldvsNew } from "./generateOldvsNew";
-import { generateSingle } from "./generateSingle";
 import { AurorianV2Generator } from "../sdk/index";
+import { log } from "./core-airdrop/utils";
 const width = 2048;
 const height = 2560;
 
@@ -133,12 +133,18 @@ async function runSingleWithSDK() {
     path.resolve(path.resolve(), "deps", "base-mouth-versions.json"),
     seqToColorName
   );
-  const sequence = 5;
+  const sequence = 9991;
   const {
     images: { full, mini },
-  } = await sdk.generate(sequence, defaultBackGroundPath);
+    metadata,
+  } = await sdk.generate(sequence, null, false);
   const savePath = path.join(outputFolder, `${sequence}.png`);
+  const savePathMini = path.join(outputFolder, `${sequence}-mini.png`);
+  const savePathJson = path.join(outputFolder, `${sequence}.json`);
+
   fs.writeFileSync(savePath, full);
+  fs.writeFileSync(savePathMini, mini);
+  fs.writeFileSync(savePathJson, JSON.stringify(metadata, null, 2));
 }
 
 async function runMultipleWithSDK() {
@@ -175,9 +181,12 @@ async function runMultipleWithSDK() {
     path.resolve(path.resolve(), "deps", "base-mouth-versions.json"),
     seqToColorName
   );
-  const start = 1;
-  const end = 100;
+  const start = 8911;
+  const end = 8911 + 1;
   for (let sequence = start; sequence < end; sequence++) {
+    if (sequence % 100 === 0) {
+      log(sequence);
+    }
     const {
       images: { full, mini },
       metadata,
@@ -185,10 +194,10 @@ async function runMultipleWithSDK() {
     const savePath = path.join(outputFolder, `${sequence}.png`);
     const savePathMini = path.join(outputFolder, `${sequence}-mini.png`);
     const savePathJson = path.join(outputFolder, `${sequence}.json`);
-    fs.writeFileSync(savePath, full);
-    fs.writeFileSync(savePathMini, mini);
-    fs.writeFileSync(savePathJson, JSON.stringify(metadata, null, 2));
+    // fs.writeFileSync(savePath, full);
+    // fs.writeFileSync(savePathMini, mini);
+    // fs.writeFileSync(savePathJson, JSON.stringify(metadata, null, 2));
   }
 }
 
-runMultipleWithSDK();
+runSingleWithSDK();
