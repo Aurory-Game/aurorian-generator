@@ -22,6 +22,7 @@
     "@metaplex-foundation/umi": "^0.9.1",
     "@metaplex-foundation/umi-bundle-defaults": "^0.9.1",
     "@metaplex-foundation/umi-web3js-adapters": "^0.9.1",
+    "@solana-developers/helpers": "^2.3.0",
     "@solana/web3.js": "^1.92.0",
     "@supercharge/promise-pool": "^3.2.0",
     "@types/node": "^20.12.12",

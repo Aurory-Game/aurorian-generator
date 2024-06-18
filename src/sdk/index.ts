@@ -252,6 +252,9 @@ export class AurorianV2Generator {
 
   isAssetSupported(aurorian: AurorianData, sequence: number): boolean {
     if (sequence > 9981) return false;
+    if ([6789, 6897, 9975].includes(sequence)) {
+      return false;
+    }
     let aurorianType;
     let aurorianSkin;
 
