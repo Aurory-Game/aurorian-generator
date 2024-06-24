@@ -252,9 +252,9 @@ export class AurorianV2Generator {
 
   isAssetSupported(aurorian: AurorianData, sequence: number): boolean {
     if (sequence > 9981) return false;
-    if ([6789, 6897, 9975].includes(sequence)) {
-      return false;
-    }
+    // if ([6789, 6897, 9975].includes(sequence)) {
+    //   return false;
+    // }
     let aurorianType;
     let aurorianSkin;
 
@@ -286,8 +286,8 @@ export class AurorianV2Generator {
     sequence: number
   ): Promise<{ full: Buffer; mini: Buffer }> {
     const urls = [
-      `https://aurorians.cdn.aurory.io/aurorians-v2/backup/images/full/${sequence}.png`,
-      `https://aurorians.cdn.aurory.io/aurorians-v2/backup/images/mini/${sequence}.png`,
+      `https://aurorians.cdn.aurory.io/aurorians/images/full/${sequence}.png`,
+      `https://aurorians.cdn.aurory.io/aurorians/images/mini/${sequence}.png`,
     ];
 
     const fetchImage = (url: string): Promise<Buffer> => {
@@ -325,10 +325,6 @@ export class AurorianV2Generator {
     customBgFilePath?: string,
     fetchUnsupportedImage = false
   ): Promise<GenerateOutput> {
-    if (sequence > 9990) {
-      throw new Error("Max supported sequence is 9990.");
-    }
-
     const aurorian = this.auroriansData[sequence - 1];
     if (!this.isAssetSupported(aurorian, sequence)) {
       const metadata = this.generateMetadataForUnsupported(aurorian, sequence);

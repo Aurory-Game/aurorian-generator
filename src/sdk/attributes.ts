@@ -425,6 +425,7 @@ const attributeToNewFilenameMap = {
   "Blob Hair": "Aurorian_Hairs_SamBlob",
   "Blob Hair_Blob": "Aurorian_Hairs_SamBlob_Blob",
   "Blob Hair_Zombie": "Aurorian_Hairs_SamBlob_Zombie",
+  "Blob Hair_Gold": "Aurorian_Hairs_SamBlob_BlobGold",
   Curly: "Aurorian_Hairs_Curved",
   Curly_Zombie: "Aurorian_Hairs_Curved_Zombie",
   Curly_Skeleton: "Aurorian_Hairs_Curved_Skeleton",
@@ -550,6 +551,7 @@ const attributeToNewFilenameMap = {
   "Dinobit Hat_No Trait": "Aurorian_Hat_Bitebit_Shaved",
   "Dinobit Hat_No Trait_Gold": "Aurorian_Hat_Bitebit_Shaved_BlobGold",
   "Dinobit Hat_No Trait_Blob": "Aurorian_Hat_Bitebit_Shaved_Blob",
+  "Dinobit Hat_No Trait_Zombie": "Aurorian_Hat_Bitebit_Shaved_Zombie",
   "Dinobit Hat_Clementine Hair": "Aurorian_Hat_Bitebit_ClementineHairs",
   "Dinobit Hat_Combed Haircut": "Aurorian_Hat_Bitebit_CombedHairs",
   "Dinobit Hat_Curly": "Aurorian_Hat_Bitebit_CurvedHairs",
@@ -664,6 +666,7 @@ const attributeToNewFilenameMap = {
   "Witch Hat_No Trait": "Aurorian_Hat_Magic_ShavedHairs",
   "Witch Hat_No Trait_Zombie": "Aurorian_Hat_Magic_ShavedHairs_Zombie",
   "Witch Hat_No Trait_Blob": "Aurorian_Hat_Magic_ShavedHairs_Blob",
+  "Witch Hat_No Trait_Gold": "Aurorian_Hat_Magic_ShavedHairs_Gold",
   "Witch Hat_Clementine Hair": "Aurorian_Hat_Magic_ClementineHairs",
   "Witch Hat_Clementine Hair_Zombie":
     "Aurorian_Hat_Magic_ClementineHairs_Zombie",
