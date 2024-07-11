@@ -103,6 +103,7 @@ const attributeToNewFilenameMap = {
   "Puffy Jacket_Solana Necklace": "Aurorian_Necklace_Gold_Doudoune",
   // Renamed to Jean Jacket Solo for non humans
   "Jean Jacket": "Aurorian_Cloth_JeanJacket",
+  "Jean Jacket_Zombie": "Aurorian_Cloth_JeanJacket_Zombie",
   "Jean Jacket_Aurory Necklace": "Aurorian_Necklace_Coral_Hoodie bleu",
   "Jean Jacket_Shark Necklace": "Aurorian_Necklace_Bone_Hoodie bleu",
   "Jean Jacket_Flower Necklace": "Aurorian_Necklace_Flower_Hoodie bleu",
@@ -847,7 +848,7 @@ const attributeToNewFilenameMap = {
   "Soft Blue": "bg_Soft Blue",
 };
 
-const oldNameToNewName = {
+export const oldNameToNewName = {
   // Cloth
   "Open Leather Jacket": "Open Commander",
   Scarf: "Open Collector",
@@ -858,7 +859,7 @@ const oldNameToNewName = {
   "Sam Outfit": "Legend of Tokane",
   "Axobubble Outfit": "Axobubble Knight",
   "Helios Outfit": "Helios Knight",
-  "Beetlefox Outfit": "Beetlefox Knight",
+  "Beetlefox Outfit": "Beeblock Knight",
   "Dinobit Outfit": "Dinobit Knight",
   "Bitebit Outfit": "Bitebit Knight",
   "Unika Outfit": "Unika Knight",
@@ -891,7 +892,7 @@ const oldNameToNewName = {
   "Axoubble Hat": "Axoubble Hat",
   "Crazy Horse Hat": "Eomer Helmet",
   "Bitebit Hat": "Bitebit Hat",
-  "Beetlefox Hat": "Beetlefox Hat",
+  "Beetlefox Hat": "Beeblock Hat",
   "Jotaro Cap": "It's-a-me Cap",
   "Dragon Hat": "Emperor Hat",
   Moogle: "Kupo Kupo Beanie",
@@ -1213,6 +1214,36 @@ export function eyesFilenameConverter(
   return { key, attributes };
 }
 
+export function clothFilenameConverter(
+  value: string,
+  skin: string,
+  sequence: number,
+  whiteshirtVersion: { version: number }[]
+): KeyAttribute {
+  const attributes: Attribute[] = [];
+  let key;
+  if (value === "No Trait" || value === "Base Cloth") {
+    if (skin !== "Human") {
+      throw new Error("This shouldn't happen");
+    }
+    attributes.push({
+      trait_type: "Cloth",
+      value:
+        oldNameToNewName[
+          `Base Cloth_${whiteshirtVersion[sequence].version + 1}`
+        ],
+    });
+    key = `No Trait_${whiteshirtVersion[sequence].version + 1}`;
+  } else {
+    key = skin === "Zombie" ? `${value}_${skin}` : value;
+    attributes.push({
+      trait_type: "Cloth",
+      value: oldNameToNewName[value],
+    });
+  }
+  return { key, attributes };
+}
+
 interface ConvertedAttribute {
   trait_type: string;
   value: string;
@@ -1283,25 +1314,14 @@ export function attributeConverter(
     key = keyWithAttributeKeys.key;
     attributes = keyWithAttributeKeys.attributes;
   } else if (trait_type === "Cloth") {
-    if (value === "No Trait" || value === "Base Cloth") {
-      if (skin !== "Human") {
-        throw new Error("This shouldn't happen");
-      }
-      attributes.push({
-        trait_type: "Cloth",
-        value:
-          oldNameToNewName[
-            `Base Cloth_${whiteshirtVersion[sequence].version + 1}`
-          ],
-      });
-      key = `No Trait_${whiteshirtVersion[sequence].version + 1}`;
-    } else {
-      key = value;
-      attributes.push({
-        trait_type: "Cloth",
-        value: oldNameToNewName[value],
-      });
-    }
+    const keyWithAttributeKeys = clothFilenameConverter(
+      value,
+      skin,
+      sequence,
+      whiteshirtVersion
+    );
+    key = keyWithAttributeKeys.key;
+    attributes = keyWithAttributeKeys.attributes;
   } else if (trait_type === "Background") {
     key = value;
     attributes.push({

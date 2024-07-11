@@ -5,6 +5,7 @@ import {
   buildAttributes,
   buildSharpInputs,
   generateHandMadeAurorian,
+  oldNameToNewName,
 } from "./attributes";
 import sharp, { Sharp } from "sharp";
 import { get } from "https";
@@ -239,12 +240,31 @@ export class AurorianV2Generator {
       aurorian.attributes.filter(
         ({ trait_type }) => !["Clothing"].includes(trait_type)
       ),
-      oldAttributesClone.filter(
-        ({ trait_type }) =>
-          ![" sequence", "sequence", "generation", "Type", "Clothing"].includes(
-            trait_type
-          )
-      ),
+      oldAttributesClone
+        .filter(
+          ({ trait_type }) =>
+            ![
+              " sequence",
+              "sequence",
+              "generation",
+              "Type",
+              "Clothing",
+            ].includes(trait_type)
+        )
+        .map((attr) => {
+          const { trait_type, value } = attr;
+          const newValue =
+            value === "No Trait" ? value : oldNameToNewName[value.trim()];
+          if (!newValue) {
+            throw new Error(
+              `Unsupported attribute value: [${value}] seq ${sequence}`
+            );
+          }
+          return {
+            trait_type,
+            value: newValue,
+          };
+        }),
       sequence
     );
     return this.generateMetadata(aurorian.name, attributes, sequence);
