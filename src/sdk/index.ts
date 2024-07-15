@@ -34,7 +34,10 @@ export enum AurorianSkin {
   ZOMBIE = "Zombie",
 }
 
-interface Metadata {
+export type AurorianSkinValue =
+  (typeof AurorianSkin)[keyof typeof AurorianSkin];
+
+export interface Metadata {
   name: string;
   symbol: string;
   description: string;
@@ -342,7 +345,7 @@ export class AurorianV2Generator {
 
   async generate(
     sequence: number,
-    customBgFilePath?: string,
+    customBgFilePath?: string | null,
     fetchUnsupportedImage = false
   ): Promise<GenerateOutput> {
     const aurorian = this.auroriansData[sequence - 1];

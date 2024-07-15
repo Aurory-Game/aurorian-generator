@@ -96,19 +96,27 @@ const attributeToNewFilenameMap = {
   "Jacket_Aurory Necklace_Zombie": "Aurorian_Necklace_Coral_Cuire_Zombie",
   "Jacket_Shark Necklace": "Aurorian_Necklace_Bone_Cuire",
   "Jacket_Flower Necklace": "Aurorian_Necklace_Flower_Cuire",
+  "Jacket_Flower Necklace_Zombie": "Aurorian_Necklace_Flower_Cuire_Zombie",
   "Jacket_Solana Necklace": "Aurorian_Necklace_Golden_Cuire",
   "Puffy Jacket": "Aurorian_Cloth_Doudoune",
   "Puffy Jacket_Zombie": "Aurorian_Cloth_Doudoune_Zmobie",
   "Puffy Jacket_Aurory Necklace": "Aurorian_Necklace_Coral_Doudoune",
+  "Puffy Jacket_Aurory Necklace_Zombie":
+    "Aurorian_Necklace_Coral_Doudoune_Zombie",
   "Puffy Jacket_Shark Necklace": "Aurorian_Necklace_Bone_Doudoune",
   "Puffy Jacket_Flower Necklace": "Aurorian_Necklace_Flower_Doudoune",
+  "Puffy Jacket_Flower Necklace_Zombie":
+    "Aurorian_Necklace_Flower_Doudoune_Zombie",
   "Puffy Jacket_Solana Necklace": "Aurorian_Necklace_Gold_Doudoune",
   // Renamed to Jean Jacket Solo for non humans
   "Jean Jacket": "Aurorian_Cloth_JeanJacket",
   "Jean Jacket_Zombie": "Aurorian_Cloth_JeanJacket_Zombie",
   "Jean Jacket_Aurory Necklace": "Aurorian_Necklace_Coral_Hoodie bleu",
+  "Jean Jacket_Aurory Necklace_Zombie":
+    "Aurorian_Necklace_Coral_Hoodie bleu_Zombie",
   "Jean Jacket_Shark Necklace": "Aurorian_Necklace_Bone_Hoodie bleu",
-  "Jean Jacket_Flower Necklace": "Aurorian_Necklace_Flower_Hoodie bleu",
+  "Jean Jacket_Flower Necklace_Zombie":
+    "Aurorian_Necklace_Flower_Hoodie bleu_Zombie",
   "Jean Jacket_Solana Necklace": "Aurorian_Necklace_Golden_Hoodie bleu",
   "Jean Jacket Solo": "Aurorian_Cloth_JeanJacket_#Speciaux",
   "Jean Jacket Solo_Aurory Necklace":
@@ -125,6 +133,8 @@ const attributeToNewFilenameMap = {
   "Hawaii Shirt": "Aurorian_Cloth_Hawaii",
   "Hawaii Shirt_Zombie": "Aurorian_Cloth_Hawaii_Zombie",
   "Hawaii Shirt_Aurory Necklace": "Aurorian_Necklace_Coral_Kimono",
+  "Hawaii Shirt_Aurory Necklace_Zombie":
+    "Aurorian_Necklace_Coral_Kimono_Zombie",
   "Hawaii Shirt_Shark Necklace": "Aurorian_Necklace_Bone_Kimono",
   "Hawaii Shirt_Flower Necklace": "Aurorian_Necklace_Flower_Kimono",
   "Hawaii Shirt_Solana Necklace": "Aurorian_Necklace_Gold_Kimono",
@@ -138,64 +148,98 @@ const attributeToNewFilenameMap = {
   "Open Leather Jacket_Zombie": "Aurorian_Cloth_Cuir_#Speciaux_Zombie",
   "Open Leather Jacket_Aurory Necklace": "Aurorian_Necklace_Coral_Leather_Open",
   "Open Leather Jacket_Shark Necklace": "Aurorian_Necklace_Bone_Leather_Open", // missing, yann est au courant
+  "Open Leather Jacket_Shark Necklace_Zombie":
+    "Aurorian_Necklace_Bone_Leather_Open_Zombie", // missing, yann est au courant
   "Open Leather Jacket_Flower Necklace":
     "Aurorian_Necklace_Flower_Leather_Open",
   "Open Leather Jacket_Solana Necklace": "Aurorian_Necklace_Gold_Leather_Open",
   "Open Jacket": "Aurorian_Cloth_Veste_Open",
   "Open Jacket_Aurory Necklace": "Aurorian_Necklace_Coral_Veste_Open",
   "Open Jacket_Shark Necklace": "Aurorian_Necklace_Bone_Veste_Open",
+  "Open Jacket_Shark Necklace_Zombie":
+    "Aurorian_Necklace_Bone_Veste_Open_Zombie",
   "Open Jacket_Flower Necklace": "Aurorian_Necklace_Flower_Veste_Open",
   "Open Jacket_Solana Necklace": "Aurorian_Necklace_Gold_Veste_Open",
   "Shoulder Straps": "Aurorian_Cloth_Bretelle",
   "Shoulder Straps_Zombie": "Aurorian_Cloth_Bretelle_Zombie",
   "Shoulder Straps_Aurory Necklace": "Aurorian_Necklace_Coral_Cartographer",
+  "Shoulder Straps_Aurory Necklace_Zombie":
+    "Aurorian_Necklace_Coral_Cartographer_Zombie",
   "Shoulder Straps_Shark Necklace": "Aurorian_Necklace_Bone_Cartographer",
   "Shoulder Straps_Flower Necklace": "Aurorian_Necklace_Flower_Cartographer",
   "Shoulder Straps_Solana Necklace": "Aurorian_Necklace_Gold_Cartographer",
   "Classy Outfit": "Aurorian_Cloth_Chic",
   "Classy Outfit_Zombie": "Aurorian_Cloth_Chic_Zombie",
   "Classy Outfit_Aurory Necklace": "Aurorian_Necklace_Coral_HighClass",
+  "Classy Outfit_Aurory Necklace_Zombie":
+    "Aurorian_Necklace_Coral_HighClass_Zombie",
   "Classy Outfit_Shark Necklace": "Aurorian_Necklace_Bone_HighClass",
   "Classy Outfit_Flower Necklace": "Aurorian_Necklace_Flower_HighClass",
   "Classy Outfit_Solana Necklace": "Aurorian_Necklace_Gold_HighClass",
+  "Classy Outfit_Solana Necklace_Zombie":
+    "Aurorian_Necklace_Gold_HighClass_Zombie",
   "Black T-Shirt": "Aurorian_Cloth_Black",
   "Black T-Shirt_Skeleton": "Aurorian_Cloth_Black_Skeleton",
   "Black T-Shirt_Zombie": "Aurorian_Cloth_Black_Zombie",
   "Black T-Shirt_Aurory Necklace": "Aurorian_Necklace_Coral_Black",
+  "Black T-Shirt_Aurory Necklace_Zombie":
+    "Aurorian_Necklace_Coral_Black_Zombie",
   "Black T-Shirt_Shark Necklace": "Aurorian_Necklace_Bone_Black",
   "Black T-Shirt_Flower Necklace": "Aurorian_Necklace_Flower_Black",
   "Black T-Shirt_Solana Necklace": "Aurorian_Necklace_Golden_Black",
+  "Black T-Shirt_Solana Necklace_Zombie":
+    "Aurorian_Necklace_Golden_Black_Zombie",
   "Yellow Stripes": "Aurorian_Cloth_Rayure_Yellow",
   "Yellow Stripes_Aurory Necklace": "Aurorian_Necklace_Coral_YellowStroke",
+  "Yellow Stripes_Aurory Necklace_Zombie":
+    "Aurorian_Necklace_Coral_YellowStroke_Zombie",
   "Yellow Stripes_Shark Necklace": "Aurorian_Necklace_Bone_YellowStroke",
+  "Yellow Stripes_Shark Necklace_Zombie":
+    "Aurorian_Necklace_Bone_YellowStroke_Zombie",
   "Yellow Stripes_Flower Necklace": "Aurorian_Necklace_Flower_YellowStroke",
+  "Yellow Stripes_Flower Necklace_Zombie":
+    "Aurorian_Necklace_Flower_YellowStroke_Zombie",
   "Yellow Stripes_Solana Necklace": "Aurorian_Necklace_Gold_YellowStroke",
   "Pink Stripes": "Aurorian_Cloth_CrystalBag_PurpleShirt",
   "Pink Stripes_Zombie": "Aurorian_Cloth_CrystalBag_PurpleShirt_Zombie",
   "Pink Stripes_Aurory Necklace": "Aurorian_Necklace_Coral_CrystalBag",
+  "Pink Stripes_Aurory Necklace_Zombie":
+    "Aurorian_Necklace_Coral_CrystalBag_Zombie",
   "Pink Stripes_Shark Necklace": "Aurorian_Necklace_Bone_CrystalBag",
   "Pink Stripes_Flower Necklace": "Aurorian_Necklace_Flower_CrystalBag",
+  "Pink Stripes_Flower Necklace_Zombie":
+    "Aurorian_Necklace_Flower_CrystalBag_Zombie",
   "Pink Stripes_Solana Necklace": "Aurorian_Necklace_Gold_CrystalBag",
   Polo: "Aurorian_Cloth_Polo",
   Polo_Zombie: "Aurorian_Cloth_Polo_Zombie",
   "Polo_Aurory Necklace": "Aurorian_Necklace_Coral_Gray",
   "Polo_Shark Necklace": "Aurorian_Necklace_Bone_Gray",
+  "Polo_Shark Necklace_Zombie": "Aurorian_Necklace_Bone_Gray_Zombie",
   "Polo_Flower Necklace": "Aurorian_Necklace_Flower_Gray",
   "Polo_Solana Necklace": "Aurorian_Necklace_Gold_Gray",
   "Leather Jacket": "Aurorian_Cloth_Cuir",
   "Leather Jacket_Zombie": "Aurorian_Cloth_Cuir_Zombie",
   "Leather Jacket_Aurory Necklace": "Aurorian_Necklace_Coral_Leather",
+  "Leather Jacket_Aurory Necklace_Zombie":
+    "Aurorian_Necklace_Coral_Leather_Zombie",
   "Leather Jacket_Shark Necklace": "Aurorian_Necklace_Bone_Leather",
+  "Leather Jacket_Shark Necklace_Zombie":
+    "Aurorian_Necklace_Bone_Leather_Zombie",
   "Leather Jacket_Flower Necklace": "Aurorian_Necklace_Flower_Leather",
+  "Leather Jacket_Flower Necklace_Zombie":
+    "Aurorian_Necklace_Flower_Leather_Zombie",
   "Leather Jacket_Solana Necklace": "Aurorian_Necklace_Gold_Leather",
   Scarf: "Aurorian_Cloth_Scarf_#Speciaux",
   "Scarf_Aurory Necklace": "Aurorian_Necklace_Coral_CrystalBag_NoShirt",
   "Scarf_Shark Necklace": "Aurorian_Necklace_Bone_CrystalBag_NoShirt",
+  "Scarf_Shark Necklace_Zombie":
+    "Aurorian_Necklace_Bone_CrystalBag_NoShirt_Zombie",
   "Scarf_Flower Necklace": "Aurorian_Necklace_Flower_CrystalBag_NoShirt",
   "Scarf_Solana Necklace": "Aurorian_Necklace_Gold_CrystalBag_NoShirt",
   "Axobubble Outfit": "Aurorian_Cloth_Axo",
   "Axobubble Outfit_Aurory Necklace": "Aurorian_Necklace_Coral_Axo",
   "Axobubble Outfit_Shark Necklace": "Aurorian_Necklace_Bone_Axo",
+  "Axobubble Outfit_Shark Necklace_Zombie": "Aurorian_Necklace_Bone_Axo_Zombie",
   "Axobubble Outfit_Flower Necklace": "Aurorian_Necklace_Flower_Axo",
   "Axobubble Outfit_Solana Necklace": "Aurorian_Necklace_Gold_Axo",
   "Dinobit Outfit": "Aurorian_Cloth_Dinobit",
@@ -216,12 +260,15 @@ const attributeToNewFilenameMap = {
   "Sam Outfit": "Aurorian_Cloth_Sam",
   "Sam Outfit_Aurory Necklace": "Aurorian_Necklace_Coral_Sam",
   "Sam Outfit_Shark Necklace": "Aurorian_Necklace_Bone_Sam",
+  "Sam Outfit_Shark Necklace_Zombie": "Aurorian_Necklace_Bone_Sam_Zombie",
   "Sam Outfit_Flower Necklace": "Aurorian_Necklace_Flower_Sam",
   "Sam Outfit_Solana Necklace": "Aurorian_Necklace_Gold_Sam",
   "Bitebit Outfit": "Aurorian_Cloth_Bitebit",
   "Bitebit Outfit_Aurory Necklace": "Aurorian_Necklace_Coral_Bitebit",
   "Bitebit Outfit_Shark Necklace": "Aurorian_Necklace_Bone_Bitebit",
   "Bitebit Outfit_Flower Necklace": "Aurorian_Necklace_Flower_Bitebit",
+  "Bitebit Outfit_Flower Necklace_Zombie":
+    "Aurorian_Necklace_Flower _Bitebit_Zombie",
   "Bitebit Outfit_Solana Necklace": "Aurorian_Necklace_Gold_Bitebit",
   "Zzoo Outfit": "Aurorian_Cloth_Zzoo",
   "Zzoo Outfit_Aurory Necklace": "Aurorian_Necklace_Coral_Zzoo",
@@ -1059,18 +1106,18 @@ export function hairFilenameConverter(
   sequence: number,
   hairlessVersion: { version: number }[]
 ): string {
-  let key: string;
+  let keyHair = "";
   if (value === "No Trait" && skin === "Human") {
     if (hairlessVersion === undefined) {
       throw new Error("Hairless version expected");
     }
-    key = `${color}_${value}_${hairlessVersion[sequence].version + 1}`;
+    keyHair = `${color}_${value}_${hairlessVersion[sequence].version + 1}`;
   } else if (value !== "No Trait") {
     if (skin === "Human") {
       if (value === "Shaved") {
-        key = `Shaved_${color}`;
+        keyHair = `Shaved_${color}`;
       } else {
-        key = `${value}`;
+        keyHair = `${value}`;
       }
     } else {
       const skinNameToFileSuffix: { [key: string]: string } = {
@@ -1079,10 +1126,10 @@ export function hairFilenameConverter(
         Zombie: "Zombie",
         Skeleton: "Skeleton",
       };
-      key = `${value}_${skinNameToFileSuffix[skin]}`;
+      keyHair = `${value}_${skinNameToFileSuffix[skin]}`;
     }
   }
-  return key;
+  return keyHair;
 }
 
 export function necklaceFilenameConverter(
@@ -1148,6 +1195,8 @@ export function necklaceFilenameConverter(
       key = `No Trait_${skin}_${necklace}`;
     } else if (necklace === "No Trait") {
       key = `${cloth}_${skin}`;
+    } else if (skin === "Zombie") {
+      key = `${cloth}_${necklace}_Zombie`;
     } else {
       key = `${cloth}_${necklace}`;
     }
@@ -1272,7 +1321,7 @@ export function attributeConverter(
   baseMouthVersion: { version: number }[]
 ): ConvertedAttribute | COMMANDS {
   const { trait_type, value: valueRaw } = attribute;
-  const value = (valueRaw as string).trim();
+  const value = valueRaw as string;
   let key: string;
   let attributes: Attribute[] = [];
   if (trait_type === "Skin") {
@@ -1344,8 +1393,9 @@ export function attributeConverter(
     return COMMANDS.SKIP;
   }
   if (!attributeToNewFilenameMap[key]) {
-    debugger;
-    throw new Error(`No mapping found for ${key} (${trait_type})`);
+    throw new Error(
+      `No mapping found for \x1b[31m${key}\x1b[0m (${trait_type})`
+    );
   }
   const filePath = attributeToNewFilenameMap[key] + ".png";
   const skinColor = trait_type === "Skin" ? color : null;
@@ -1367,7 +1417,7 @@ export function buildAttributes(
   customBgFilePath?: string
 ): ConvertedAttribute[] {
   const sequence = oldAttributes.find(
-    ({ trait_type }) => trait_type === " sequence" || trait_type === "sequence"
+    ({ trait_type }) => trait_type.trim().toLowerCase() === "sequence"
   )?.value as any as number;
   if (!sequence) {
     throw new Error("No sequence found");
@@ -1390,7 +1440,7 @@ export function buildAttributes(
   const bg = oam["Background"];
   const newAttributes = oldAttributes
     .filter(({ trait_type, value }) => {
-      const trait_types = ["Type", "Clothing", "generation", " sequence"];
+      const trait_types = ["type", "clothing", "generation", "sequence"];
       const excludeBg = trait_type === "Background" && customBgFilePath;
       const excludeMouth =
         trait_type === "Mouth" && skin === "Skeleton" && value === "No Trait";
@@ -1418,14 +1468,14 @@ export function buildAttributes(
         !excludeNecklace &&
         !excludeCloth &&
         !excludeHat &&
-        !trait_types.includes(trait_type) &&
+        !trait_types.includes(trait_type.trim().toLocaleLowerCase()) &&
         !excludeMouth &&
         !excludeEyes
       );
     })
     .map(({ trait_type, value }) =>
       attributeConverter(
-        { trait_type, value: (value as string).trim() },
+        { trait_type, value: typeof value === "string" ? value.trim() : value },
         oldAttributes,
         skin,
         color,
@@ -1444,7 +1494,7 @@ export function generateHandMadeAurorian(
   attributes: Attribute[],
   sequence: number,
   imagesDirPath: string
-): { bgPath: string; aurorianPath: string } | null {
+): { bgPath: string; aurorianPath: string } {
   let bg, aurorianType, aurorianSkin;
   for (let i = 0; i < attributes.length; i++) {
     const attr = attributes[i];
